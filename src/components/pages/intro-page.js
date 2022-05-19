@@ -7,7 +7,7 @@ export class IntroPage extends React.Component {
             <div>
                 <Box p={2}>
                     {/* <Typography variant="h3">Recommendation system</Typography> */}
-                        Welcome. 
+                        Welcome! 
                         <br></br>
                         Your task is to interact with our recommendation system.
                         <br></br>
@@ -15,16 +15,20 @@ export class IntroPage extends React.Component {
                         <br></br>
                         <br></br>
                         <b>Part 1</b>
+                        <br></br>
+                        The recommendation system will recommend you movies.
                         <ol>
                             <li>Complete a questionnaire</li>
                             <li>View a set of movie recommendations</li>
-                            <li>Rate the movie recommendations</li>
+                            <li>Rate the movie recommendations.</li>
                         </ol>
                         <b>Part 2</b>
+                        <br></br>
+                        The recommendation system will recommend your mouse movement rate.
                         <ol>
                             <li>Complete a mouse-pointing task</li>
                             <li>Repeat mouse-pointing task</li>
-                            <li>Rate the recommended the mouse cursor movement rate</li>
+                            <li>Rate the recommended the mouse movement rate.</li>
                         </ol>
                         <br></br>
                         Press next to begin Part 1.
