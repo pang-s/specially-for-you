@@ -17,12 +17,14 @@ import StepLabel from "@mui/material/StepLabel";
 import MoviePage from "../pages/movie-page";
 import AgeForm from "../pages/age-form";
 import GenderForm from "../pages/gender-form";
+import RatingForm from "../pages/rating-form"
 
 const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
 const MOVIE_PAGE = "MOVIE_PAGE";
 const AGE_FORM = "AGE_FORM";
 const GENDER_FORM = "GENDER_FORM"
+const RATING_FORM = "RATING_FORM";
 
 
 class MainStepper extends React.Component {
@@ -50,6 +52,7 @@ class MainStepper extends React.Component {
     // contents.push(new Page(QUESTION_PAGE, question1));
     contents = this.addQuestionPages(contents);
     contents.push(new Page(MOVIE_PAGE));
+    contents.push(new Page(RATING_FORM))
     contents.push(new Page(AGE_FORM));
     contents.push(new Page(GENDER_FORM))
 
@@ -115,7 +118,7 @@ class MainStepper extends React.Component {
     }
     if (name === QUESTION_PAGE) {
       var content = pageObject.content;
-      var questionNumber = content[0];
+      var questionNumber = content[0].toString();
       var questionText = content[1];
       var questionPage = StarterBox(
         <QuestionPage
@@ -143,6 +146,12 @@ class MainStepper extends React.Component {
         <GenderForm handleNext={this.handleNext} />
       );
       return this.divStepWrapper(genderForm);
+    }
+    if (name === RATING_FORM) {
+      var ratingForm = StarterBox(
+        <RatingForm handleNext={this.handleNext} />
+      );
+      return this.divStepWrapper(ratingForm);
     }
     return null;
   }

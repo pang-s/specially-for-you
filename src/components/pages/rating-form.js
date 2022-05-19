@@ -5,19 +5,33 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
 
 const defaultValue = null;
+const labels = {
+  0.5: "Useless",
+  1: "Useless+",
+  1.5: "Poor",
+  2: "Poor+",
+  2.5: "Ok",
+  3: "Ok+",
+  3.5: "Good",
+  4: "Good+",
+  4.5: "Excellent",
+  5: "Excellent+",
+};
 
-class GenderForm extends React.Component {
+class RatingForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showNextButton: false,
-      genderValue: null
+      ratingValue: null,
+      ratingText: null,
+      hoverValue: null,
+      hoverText: null,
     };
   }
 
@@ -33,20 +47,11 @@ class GenderForm extends React.Component {
   }
 
   isValueProvided() {
-    if (this.state.genderValue !== defaultValue) {
+    if (this.state.ratingValue !== defaultValue) {
       return true;
     }
     return false;
   }
-
-  handleChange = (event, value) => {
-    this.setState(
-      {
-        genderValue: event.target.value,
-      },
-      () => this.renderNextButton()
-    );
-  };
 
   renderNextButton() {
     if (this.isValueProvided()) {
@@ -65,8 +70,8 @@ class GenderForm extends React.Component {
     var formJson = {
       universalTime: date.getTime(),
       timestamp: date.toISOString(),
-      action: "LOG_GENDER_FORM_RESPONSE",
-      state: this.state
+      action: "LOG_RATING_FORM_RESPONSE",
+      state: this.state,
     };
     this.props.logSurveyResponse(formJson);
 
@@ -85,23 +90,48 @@ class GenderForm extends React.Component {
     );
   }
 
-  getGenderSelect() {
-    return(
-      <Box sx={{ minWidth: 80 }}>
-      <FormControl fullWidth>
-        <Select
-          id="gender-select"
-          onChange={this.handleChange}
-          variant="standard"
-          defaultValue=""
-        >
-          <MenuItem value={"Female"}>Female</MenuItem>
-          <MenuItem value={"Male"}>Male</MenuItem>
-          <MenuItem value={"Other"}>Other</MenuItem>
-          <MenuItem value={"Prefer not to say"}>Prefer not to say</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+  handleChange = (event, value) => {
+    var ratingValue = event.target.value;
+    var ratingText = labels[ratingValue];
+
+    this.setState(
+      {
+        ratingValue: ratingValue,
+        ratingText: ratingText,
+      },
+      () => this.renderNextButton()
+    );
+  };
+
+  handleHover = (event, ratingValue) => {
+    var ratingText = labels[ratingValue];
+
+    this.setState({
+      hoverValue: ratingValue,
+      hoverText: ratingText,
+    });
+  };
+
+
+  getHoverRating() {
+    return (
+      <div>
+        <Rating
+          name="hover-feedback"
+          value={this.hoverValue}
+          precision={0.5}
+          onChange={(event, newValue) => {
+            this.handleChange(event, newValue);
+          }}
+          onChangeActive={(event, newHover) => {
+            this.handleHover(event, newHover);
+          }}
+          emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+        />
+        <Typography>
+          {this.state.hoverValue !== -1 ? this.state.hoverText : this.state.ratingText}
+        </Typography>
+      </div>
     );
   }
 
@@ -110,8 +140,13 @@ class GenderForm extends React.Component {
       <div>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
-            <Typography>What is your gender?</Typography>
-            {this.getGenderSelect()}
+            <Typography>
+              What did you think of the movie recommendations?
+              <br></br>
+              Rate on a scale of zero (Useless) to five (Excellent) how the
+              movie recommendations are for you.
+            </Typography>
+            {this.getHoverRating()}
           </Grid>
         </Grid>
 
@@ -123,7 +158,7 @@ class GenderForm extends React.Component {
   }
 }
 
-GenderForm.propTypes = {
+RatingForm.propTypes = {
   logSurveyResponse: PropTypes.func.isRequired,
   log: PropTypes.func.isRequired,
 };
@@ -131,4 +166,4 @@ GenderForm.propTypes = {
 export default connect(null, {
   logSurveyResponse,
   log,
-})(GenderForm);
+})(RatingForm);

@@ -145,6 +145,7 @@ class QuestionPage extends React.Component {
             >
               {radioOptions.map((o) => (
                 <FormControlLabel
+                  key={o.value}
                   value={o.value}
                   control={<Radio />}
                   labelPlacement="end"
