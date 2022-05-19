@@ -16,11 +16,13 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import MoviePage from "../pages/movie-page";
 import AgeForm from "../pages/age-form";
+import GenderForm from "../pages/gender-form";
 
-export const INTRO_PAGE = "INTRO_PAGE";
-export const QUESTION_PAGE = "QUESTION_PAGE";
-export const MOVIE_PAGE = "MOVIE_PAGE";
-export const AGE_FORM = "AGE_FORM";
+const INTRO_PAGE = "INTRO_PAGE";
+const QUESTION_PAGE = "QUESTION_PAGE";
+const MOVIE_PAGE = "MOVIE_PAGE";
+const AGE_FORM = "AGE_FORM";
+const GENDER_FORM = "GENDER_FORM"
 
 
 class MainStepper extends React.Component {
@@ -49,6 +51,7 @@ class MainStepper extends React.Component {
     contents = this.addQuestionPages(contents);
     contents.push(new Page(MOVIE_PAGE));
     contents.push(new Page(AGE_FORM));
+    contents.push(new Page(GENDER_FORM))
 
     return contents;
   }
@@ -135,7 +138,12 @@ class MainStepper extends React.Component {
       );
       return this.divStepWrapper(ageForm);
     }
-
+    if (name === GENDER_FORM) {
+      var genderForm = StarterBox(
+        <GenderForm handleNext={this.handleNext} />
+      );
+      return this.divStepWrapper(genderForm);
+    }
     return null;
   }
 
