@@ -18,6 +18,8 @@ import MoviePage from "../pages/movie-page";
 import AgeForm from "../pages/age-form";
 import GenderForm from "../pages/gender-form";
 import RatingForm from "../pages/rating-form"
+import MouseStartPage from "../pages/mouse-start-page";
+import MouseTask from "../pages/mouse-task";
 
 const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
@@ -25,6 +27,8 @@ const MOVIE_PAGE = "MOVIE_PAGE";
 const AGE_FORM = "AGE_FORM";
 const GENDER_FORM = "GENDER_FORM"
 const RATING_FORM = "RATING_FORM";
+const MOUSE_START_PAGE = "MOUSE_START_PAGE";
+const MOUSE_TASK = "MOUSE_TASK";
 
 
 class MainStepper extends React.Component {
@@ -45,17 +49,18 @@ class MainStepper extends React.Component {
 
   getContents() {
     var contents = [];
-    contents.push(new Page(INTRO_PAGE));
+    // contents.push(new Page(INTRO_PAGE));
 
     // Questions
     // var question1 = [1, "You like books and movies that make you come up with your own interpretation of the ending."]
-    // contents.push(new Page(QUESTION_PAGE, question1));
-    contents = this.addQuestionPages(contents);
-    contents.push(new Page(MOVIE_PAGE));
-    contents.push(new Page(RATING_FORM))
+    // contents = this.addQuestionPages(contents);
+    // contents.push(new Page(MOVIE_PAGE));
+    // contents.push(new Page(RATING_FORM))
+
+    // contents.push(new Page(MOUSE_START_PAGE))
+    contents.push(new Page(MOUSE_TASK))
     contents.push(new Page(AGE_FORM));
     contents.push(new Page(GENDER_FORM))
-
     return contents;
   }
 
@@ -152,6 +157,18 @@ class MainStepper extends React.Component {
         <RatingForm handleNext={this.handleNext} />
       );
       return this.divStepWrapper(ratingForm);
+    }
+    if (name === MOUSE_START_PAGE) {
+      var mouseStartPage = StarterBox(
+        <MouseStartPage nextButton={this.getNextButton()} />
+      );
+      return this.divStepWrapper(mouseStartPage);
+    }
+    if (name === MOUSE_TASK) {
+      var mouseTask = StarterBox(
+        <MouseTask handleNext={this.handleNext} />
+      );
+      return this.divStepWrapper(mouseTask);
     }
     return null;
   }
