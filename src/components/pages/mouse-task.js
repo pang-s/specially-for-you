@@ -17,7 +17,11 @@ const blankColour = "white;";
 const requiredSuccessfulClicks = 2;
 const mouseSetups = [
   new MouseSetup(8, 0), 
-  new MouseSetup(6, 1)];
+  new MouseSetup(6, 1),
+  new MouseSetup(10, 3),
+  new MouseSetup(20, 8),
+  new MouseSetup(16, 2),
+  new MouseSetup(12, 2)];
 
 class MouseTask extends React.Component {
   constructor(props) {
@@ -180,7 +184,8 @@ class MouseTask extends React.Component {
       <Box
         onClick={(e) => this.handleBoxClick(e, colour)}
         key={i}
-        sx={{ gridRow: "1", border: "1px solid grey", backgroundColor: colour }}
+        sx={{ gridRow: "1", 
+        backgroundColor: colour }}
       >
         {/* <Button onClick={(e) => this.handleBoxClick(e)}></Button> */}
       </Box>
@@ -212,7 +217,7 @@ class MouseTask extends React.Component {
         sx={{
           width: 800,
           height: 500,
-          border: "1px solid grey",
+          border: "1px solid lightgray",
           display: "grid",
           gridAutoColumns: "1fr",
         }}
