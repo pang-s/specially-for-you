@@ -9,7 +9,7 @@ import { MouseSetup } from "./mouse-setup";
 const initialSetupIndex = 0;
 const activeColour = "lime";
 const inactiveColour = "gray";
-const numRequiredClicks = 2;
+const numRequiredClicks = 11;
 const taskWidth = 36;
 
 const mouseSetups = [
@@ -17,11 +17,11 @@ const mouseSetups = [
   new MouseSetup(2, 5),
   new MouseSetup(4, 20),
   new MouseSetup(2, 20),
-  // new MouseSetup(4, 10),
-  // new MouseSetup(4, 5),
-  // new MouseSetup(8, 20),
-  // new MouseSetup(8, 5),
-  // new MouseSetup(2, 10)
+  // new MouseSetup(4, 10), .. ignore duplicate
+  new MouseSetup(4, 5),
+  new MouseSetup(8, 20),
+  new MouseSetup(8, 5),
+  new MouseSetup(2, 10)
 ];
 
 class MouseTask extends React.Component {
