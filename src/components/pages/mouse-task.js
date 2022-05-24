@@ -3,35 +3,47 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
 import { log } from "../../actions/mouse-actions";
-import { getRandomInt } from "../util";
 import { MouseSetup } from "./mouse-setup";
 
 const initialSetupIndex = 0;
-const defaultTargetIndex = 0;
 const activeColour = "lime";
-const disabledColour = "gray";
-const blankColour = "white;";
-
+const inactiveColour = "gray";
 const requiredSuccessfulClicks = 2;
+const taskWidth = 25;
+
+// ordered
+// const mouseSetups = [
+//   new MouseSetup(0.8, 15),
+//   new MouseSetup(0.4, 15),
+//   new MouseSetup(0.2, 15),
+//   new MouseSetup(0.8, 5),
+//   new MouseSetup(0.4, 5),
+//   new MouseSetup(0.2, 5),
+//   new MouseSetup(0.8, 10),
+//   new MouseSetup(0.4, 10),
+//   new MouseSetup(0.2, 10)
+// ];
+
+// unordered
 const mouseSetups = [
-  new MouseSetup(8, 0), 
-  new MouseSetup(6, 1),
-  new MouseSetup(10, 3),
-  new MouseSetup(20, 8),
-  new MouseSetup(16, 2),
-  new MouseSetup(12, 2)];
+  new MouseSetup(0.8, 10),
+  new MouseSetup(0.2, 5),
+  new MouseSetup(0.4, 15),
+  new MouseSetup(0.2, 15),
+  new MouseSetup(0.4, 10),
+  new MouseSetup(0.4, 5),
+  new MouseSetup(0.8, 15),
+  new MouseSetup(0.8, 5),
+  new MouseSetup(0.2, 10)
+];
 
 class MouseTask extends React.Component {
   constructor(props) {
     super(props);
 
-    var initialSetup = mouseSetups[initialSetupIndex];
-
     this.state = {
       currentSetupIndex: initialSetupIndex,
-      prevTargetIndex: defaultTargetIndex,
       greenOnLeft: true,
       showNextButton: false,
       numClicks: 0,
@@ -40,9 +52,6 @@ class MouseTask extends React.Component {
   }
 
   componentDidMount() {
-    // this.setState({
-    //   targetIndex: this.getTargetIndex(),
-    // });
     let date = new Date();
     let configJson = {
       universalTime: date.getTime(),
@@ -66,48 +75,16 @@ class MouseTask extends React.Component {
     this.props.handleNext();
   };
 
-  getNextButton() {
-    return (
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={(e) => this.handleNext(e)}
-      >
-        Next
-      </Button>
-    );
-  }
-
   getCurrentMouseSetup() {
     return mouseSetups[this.state.currentSetupIndex];
   }
 
-  getNumCols() {
-    return this.getCurrentMouseSetup().numCols;
+  getWidth() {
+    return this.getCurrentMouseSetup().width;
   }
 
-  getTargetIndex() {
-    return this.getCurrentMouseSetup().targetIndex;
-  }
-
-  getRandomTargetIndex() {
-    // Gets random index as target (or we can reprogram to be hard coded as well)
-    // Get half number of cols e.g. 6 /2 = 3 - 1 = 2 because start at 0
-    var midCol = this.getNumCols() / 2 - 1;
-
-    var randomInt = defaultTargetIndex;
-    while (randomInt === this.state.prevTargetIndex) {
-      randomInt = getRandomInt(0, midCol);
-    }
-
-    this.setState({
-      prevTargetIndex: randomInt,
-    });
-    return randomInt;
-  }
-
-  getRightTargetIndex() {
-    return this.getNumCols() - 1 - this.getTargetIndex();
+  getDistance() {
+    return this.getCurrentMouseSetup().distance;
   }
 
   isTrialComplete() {
@@ -128,7 +105,7 @@ class MouseTask extends React.Component {
   setupNewTrial() {
     this.setState({
       currentSetupIndex: this.state.currentSetupIndex + 1,
-      numClicks: 0
+      numClicks: 0,
     });
   }
 
@@ -139,8 +116,6 @@ class MouseTask extends React.Component {
 
     this.logTrialCompletion();
 
-    console.log("this.state.trialsDone", this.state.trialsDone, "mouseSetups.length", mouseSetups.length, this.state)
-
     if (this.state.trialsDone === mouseSetups.length - 1) {
       var date = new Date();
       var formJson = {
@@ -150,18 +125,16 @@ class MouseTask extends React.Component {
         state: this.state,
       };
       this.props.log(formJson);
-  
+
       this.props.handleNext();
     } else {
-      this.setupNewTrial()
+      this.setupNewTrial();
     }
-
   }
 
   swapTarget() {
     this.setState({
-      greenOnLeft: !this.state.greenOnLeft,
-      targetIndex: this.getTargetIndex(),
+      greenOnLeft: !this.state.greenOnLeft
     });
   }
 
@@ -179,50 +152,40 @@ class MouseTask extends React.Component {
     }
   }
 
-  getBox(i, colour) {
+  getBox(marginLeft, width, colour) {
     return (
       <Box
         onClick={(e) => this.handleBoxClick(e, colour)}
-        key={i}
-        sx={{ gridRow: "1", 
-        backgroundColor: colour }}
-      >
-        {/* <Button onClick={(e) => this.handleBoxClick(e)}></Button> */}
-      </Box>
+        sx={{
+          marginLeft: marginLeft,
+          width: width,
+          height: "100%",
+          backgroundColor: colour,
+        }}
+      ></Box>
     );
   }
 
-  renderBoxes(i) {
-    var leftCol = this.getTargetIndex();
-    var rightCol = this.getRightTargetIndex();
-
-    var leftColour = this.state.greenOnLeft ? activeColour : disabledColour;
-    var rightColour = this.state.greenOnLeft ? disabledColour : activeColour;
-    if (i === leftCol) {
-      return this.getBox(i, leftColour);
-    } else if (i === rightCol) {
-      return this.getBox(i, rightColour);
-    } else {
-      return this.getBox(i, blankColour);
-    }
-  }
-
-  populateGrid() {
-    return [...Array(this.getNumCols())].map((x, i) => this.renderBoxes(i));
-  }
-
   showTask() {
+    var leftColour = this.state.greenOnLeft ? activeColour : inactiveColour;
+    var rightColour = this.state.greenOnLeft ? inactiveColour : activeColour;
+
+    var widthCm = this.getWidth() + "cm";
+    var distanceCm = this.getDistance() + "cm";
+
     return (
       <Box
         sx={{
-          width: 800,
-          height: 500,
+          width: taskWidth + "cm",
+          height: "15cm",
           border: "1px solid lightgray",
-          display: "grid",
-          gridAutoColumns: "1fr",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "row",
         }}
       >
-        {this.populateGrid()}
+        {this.getBox("0cm", widthCm, leftColour)}
+        {this.getBox(distanceCm, widthCm, rightColour)}
       </Box>
     );
   }

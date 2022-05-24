@@ -1,6 +1,6 @@
 export class MouseSetup {
-    constructor(numCols, targetIndex) {
-      this.numCols = numCols;
-      this.targetIndex = targetIndex;
+    constructor(width, distance) {
+      this.width = width;
+      this.distance = distance;
     }
   }
