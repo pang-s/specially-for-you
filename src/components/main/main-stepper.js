@@ -71,18 +71,17 @@ class MainStepper extends React.Component {
   }
 
   addQuestionPages(contents) {
+    // var questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
     var questions = [
-      "You like books and movies that make you come up with your own interpretation of the ending."]
-    // var questions = [
-    //   "You like books and movies that make you come up with your own interpretation of the ending.",
-    //   "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
-    //   "You usually stay calm, even under a lot of pressure.",
-    //   "Seeing other people cry can easily make you feel like you want to cry too.",
-    //   "You enjoy watching people argue.",
-    //   "You become bored or lose interest when the discussion gets highly theoretical.",
-    //   "You are very intrigued by things labeled as controversial.",
-    //   "You are definitely not an artistic type of person."
-    // ];
+      "You like books and movies that make you come up with your own interpretation of the ending.",
+      "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
+      "You usually stay calm, even under a lot of pressure.",
+      "Seeing other people cry can easily make you feel like you want to cry too.",
+      "You enjoy watching people argue.",
+      "You become bored or lose interest when the discussion gets highly theoretical.",
+      "You are very intrigued by things labeled as controversial.",
+      "You are definitely not an artistic type of person."
+    ];
 
     for (let i = 0; i < questions.length; i++) {
       var content = [i + 1, questions[i]];
