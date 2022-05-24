@@ -17,7 +17,7 @@ import StepLabel from "@mui/material/StepLabel";
 import MoviePage from "../pages/movie-page";
 import AgeForm from "../pages/age-form";
 import GenderForm from "../pages/gender-form";
-import RatingForm from "../pages/rating-form"
+import RatingForm from "../pages/rating-form";
 import MouseStartPage from "../pages/mouse-start-page";
 import MouseTask from "../pages/mouse-task";
 import MouseInfoPage from "../pages/mouse-info-page";
@@ -27,12 +27,24 @@ const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
 const MOVIE_PAGE = "MOVIE_PAGE";
 const AGE_FORM = "AGE_FORM";
-const GENDER_FORM = "GENDER_FORM"
+const GENDER_FORM = "GENDER_FORM";
 const RATING_FORM = "RATING_FORM";
 const MOUSE_START_PAGE = "MOUSE_START_PAGE";
 const MOUSE_TASK = "MOUSE_TASK";
 const MOUSE_INFO_PAGE = "MOUSE_INFO_PAGE";
 const MOUSE_RATING_FORM = "MOUSE_RATING_FORM";
+
+// const questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
+const questions = [
+  "You like books and movies that make you come up with your own interpretation of the ending.",
+  "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
+  "You usually stay calm, even under a lot of pressure.",
+  "Seeing other people cry can easily make you feel like you want to cry too.",
+  "You enjoy watching people argue.",
+  "You become bored or lose interest when the discussion gets highly theoretical.",
+  "You are very intrigued by things labeled as controversial.",
+  "You are definitely not an artistic type of person.",
+];
 
 class MainStepper extends React.Component {
   constructor(props) {
@@ -61,8 +73,8 @@ class MainStepper extends React.Component {
 
     contents.push(new Page(MOUSE_START_PAGE));
     contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_INFO_PAGE))
-    contents.push(new Page(MOUSE_TASK))
+    contents.push(new Page(MOUSE_INFO_PAGE));
+    contents.push(new Page(MOUSE_TASK));
     contents.push(new Page(MOUSE_RATING_FORM));
 
     contents.push(new Page(AGE_FORM));
@@ -71,18 +83,6 @@ class MainStepper extends React.Component {
   }
 
   addQuestionPages(contents) {
-    // var questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
-    var questions = [
-      "You like books and movies that make you come up with your own interpretation of the ending.",
-      "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
-      "You usually stay calm, even under a lot of pressure.",
-      "Seeing other people cry can easily make you feel like you want to cry too.",
-      "You enjoy watching people argue.",
-      "You become bored or lose interest when the discussion gets highly theoretical.",
-      "You are very intrigued by things labeled as controversial.",
-      "You are definitely not an artistic type of person."
-    ];
-
     for (let i = 0; i < questions.length; i++) {
       var content = [i + 1, questions[i]];
       contents.push(new Page(QUESTION_PAGE, content));
@@ -134,6 +134,7 @@ class MainStepper extends React.Component {
         <QuestionPage
           questionNumber={questionNumber}
           questionText={questionText}
+          numQuestions={questions.length}
           handleNext={this.handleNext}
         />
       );
@@ -146,21 +147,15 @@ class MainStepper extends React.Component {
       return this.divStepWrapper(moviePage);
     }
     if (name === AGE_FORM) {
-      var ageForm = StarterBox(
-        <AgeForm handleNext={this.handleNext} />
-      );
+      var ageForm = StarterBox(<AgeForm handleNext={this.handleNext} />);
       return this.divStepWrapper(ageForm);
     }
     if (name === GENDER_FORM) {
-      var genderForm = StarterBox(
-        <GenderForm handleNext={this.handleNext} />
-      );
+      var genderForm = StarterBox(<GenderForm handleNext={this.handleNext} />);
       return this.divStepWrapper(genderForm);
     }
     if (name === RATING_FORM) {
-      var ratingForm = StarterBox(
-        <RatingForm handleNext={this.handleNext} />
-      );
+      var ratingForm = StarterBox(<RatingForm handleNext={this.handleNext} />);
       return this.divStepWrapper(ratingForm);
     }
     if (name === MOUSE_START_PAGE) {
@@ -170,9 +165,7 @@ class MainStepper extends React.Component {
       return this.divStepWrapper(mouseStartPage);
     }
     if (name === MOUSE_TASK) {
-      var mouseTask = StarterBox(
-        <MouseTask handleNext={this.handleNext} />
-      );
+      var mouseTask = StarterBox(<MouseTask handleNext={this.handleNext} />);
       return this.divStepWrapper(mouseTask);
     }
     if (name === MOUSE_INFO_PAGE) {
@@ -183,7 +176,7 @@ class MainStepper extends React.Component {
     }
     if (name === MOUSE_RATING_FORM) {
       var mouseRatingForm = StarterBox(
-        <MouseRatingForm handleNext={this.handleNext}/>
+        <MouseRatingForm handleNext={this.handleNext} />
       );
       return this.divStepWrapper(mouseRatingForm);
     }

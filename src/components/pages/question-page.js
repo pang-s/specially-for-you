@@ -136,7 +136,7 @@ class QuestionPage extends React.Component {
       <div>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12}>
-            <Typography>Question {this.props.questionNumber}/30</Typography>
+            <Typography>Question {this.props.questionNumber}/{this.props.numQuestions}</Typography>
             <Typography>{this.props.questionText}</Typography>
             <RadioGroup
               name={this.props.questionNumber}

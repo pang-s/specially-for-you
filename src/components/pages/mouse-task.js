@@ -44,6 +44,8 @@ class MouseTask extends React.Component {
       timestamp: date.toISOString(),
       action: "LOG_ON_MOUNT_MOUSE_TASK",
       state: this.state,
+      distance: this.getDistance(),
+      width: this.getWidth()
     };
     this.props.log(configJson);
   }
@@ -84,6 +86,8 @@ class MouseTask extends React.Component {
       timestamp: date.toISOString(),
       action: "LOG_MOUSE_TASK_TRIAL_COMPLETE",
       state: this.state,
+      distance: this.getDistance(),
+      width: this.getWidth()
     };
     this.props.log(formJson);
   }
@@ -109,6 +113,8 @@ class MouseTask extends React.Component {
         timestamp: date.toISOString(),
         action: "LOG_MOUSE_TASK_HANDLE_NEXT",
         state: this.state,
+        distance: this.getDistance(),
+        width: this.getWidth()
       };
       this.props.log(formJson);
 
@@ -131,7 +137,9 @@ class MouseTask extends React.Component {
       timestamp: date.toISOString(),
       action: "LOG_MOUSE_TASK_BOX_CLICK",
       state: this.state,
-      numClicks: numClicks
+      numClicks: numClicks,
+      distance: this.getDistance(),
+      width: this.getWidth()
     };
     this.props.log(formJson);
   }

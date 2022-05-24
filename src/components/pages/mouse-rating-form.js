@@ -141,7 +141,7 @@ class MouseRatingForm extends React.Component {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography>
-              What did you think of the mouse pointer acceleration recommendations?
+              What did you think of the recommended mouse pointer acceleration?
               <br></br>
               Rate on a scale of zero (Useless) to five (Excellent) how the
               pointer acceleration helped optimise your performance.
