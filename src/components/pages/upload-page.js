@@ -13,8 +13,6 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 
-import { addS3Event, logOnMount } from "../../actions/upload-actions";
-
 const firebaseApp = initializeApp(FIREBASE_CONFIG);
 const storage = getStorage(firebaseApp);
 const maxAttempts = 3;
@@ -32,19 +30,6 @@ class UploadPage extends React.Component {
   }
 
   componentDidMount() {
-    let date = new Date();
-    let configJson = {
-      universalTime: date.getTime(),
-      timestamp: date.toISOString(),
-      action: "UPLOAD_PAGE_LOG_ON_MOUNT",
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      message:
-        "Upload page mounted so user have basically finished the experiment.",
-    };
-
-    this.props.logOnMount(configJson);
-
     if (isFirebaseUpload) {
       this.saveJsonFile();
     }
@@ -66,15 +51,6 @@ class UploadPage extends React.Component {
     var date = new Date();
     var folder = "participant_" + this.props.init.participantNum;
     let fileKey = folder + "_log_file_" + date.toISOString() + ".json";
-
-    var uploadingJson = {
-      universalTime: date.getTime(),
-      timestamp: date.toISOString(),
-      action: "ADD_S3_EVENT_UPLOADING",
-      fileKey: fileKey,
-      message: "Uploading logs to firebase.",
-    };
-    this.props.addS3Event(uploadingJson);
 
     var child = folder + "/" + fileKey;
     const storageRef = ref(storage, child);
@@ -128,15 +104,6 @@ class UploadPage extends React.Component {
       hasUploaded: true,
       text: "Upload success!",
     });
-
-    var currentDate = new Date();
-    var s3event = {
-      universalTime: currentDate.getTime(),
-      timestamp: currentDate.toISOString(),
-      action: "ADD_S3_EVENT_UPLOAD_SUCCESS",
-      message: "Successfully uploaded logs to firebase",
-    };
-    this.props.addS3Event(s3event);
 
     this.props.handleNext();
   }
@@ -194,9 +161,7 @@ class UploadPage extends React.Component {
 }
 
 UploadPage.propTypes = {
-  state: PropTypes.object.isRequired,
-  addS3Event: PropTypes.func.isRequired,
-  logOnMount: PropTypes.func.isRequired,
+  state: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -206,4 +171,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addS3Event, logOnMount })(UploadPage);
+export default connect(mapStateToProps, { })(UploadPage);
