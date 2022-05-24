@@ -4,7 +4,7 @@ import React from "react";
 
 export function StarterBox(content) {
     return (
-        <Box m="auto" width={'38cm'}>
+        <Box m="auto" width={'38cm'} marginTop={2}>
             <Paper elevation={3} height={"100%"} width={"100%"}>
                 <Box display="flex" height={"100%"} width={"100%"}>
                     <Box p={3} width={"100%"}>

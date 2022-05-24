@@ -16,7 +16,7 @@ export class IntroPage extends React.Component {
                         <br></br>
                         <b>Part 1</b>
                         <br></br>
-                        The recommendation system will recommend you movies.
+                        The recommendation system will recommend you some movies.
                         <ol>
                             <li>Complete a questionnaire</li>
                             <li>View a set of movie recommendations</li>
@@ -24,11 +24,11 @@ export class IntroPage extends React.Component {
                         </ol>
                         <b>Part 2</b>
                         <br></br>
-                        The recommendation system will recommend your mouse movement rate.
+                        The recommendation system will optimise your mouse pointer acceleration.
                         <ol>
                             <li>Complete a mouse-pointing task</li>
-                            <li>Repeat mouse-pointing task</li>
-                            <li>Rate the recommended the mouse movement rate.</li>
+                            <li>Repeat mouse-pointing task with the optimisation</li>
+                            <li>Rate the recommended mouse pointer acceleration.</li>
                         </ol>
                         <br></br>
                         Press next to begin Part 1.

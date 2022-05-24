@@ -20,6 +20,8 @@ import GenderForm from "../pages/gender-form";
 import RatingForm from "../pages/rating-form"
 import MouseStartPage from "../pages/mouse-start-page";
 import MouseTask from "../pages/mouse-task";
+import MouseInfoPage from "../pages/mouse-info-page";
+import MouseRatingForm from "../pages/mouse-rating-form";
 
 const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
@@ -29,7 +31,8 @@ const GENDER_FORM = "GENDER_FORM"
 const RATING_FORM = "RATING_FORM";
 const MOUSE_START_PAGE = "MOUSE_START_PAGE";
 const MOUSE_TASK = "MOUSE_TASK";
-
+const MOUSE_INFO_PAGE = "MOUSE_INFO_PAGE";
+const MOUSE_RATING_FORM = "MOUSE_RATING_FORM";
 
 class MainStepper extends React.Component {
   constructor(props) {
@@ -49,23 +52,27 @@ class MainStepper extends React.Component {
 
   getContents() {
     var contents = [];
-    // contents.push(new Page(INTRO_PAGE));
+    contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    // var question1 = [1, "You like books and movies that make you come up with your own interpretation of the ending."]
-    // contents = this.addQuestionPages(contents);
-    // contents.push(new Page(MOVIE_PAGE));
-    // contents.push(new Page(RATING_FORM))
+    contents = this.addQuestionPages(contents);
+    contents.push(new Page(MOVIE_PAGE));
+    contents.push(new Page(RATING_FORM));
 
-    // contents.push(new Page(MOUSE_START_PAGE))
+    contents.push(new Page(MOUSE_START_PAGE));
+    contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_INFO_PAGE))
     contents.push(new Page(MOUSE_TASK))
+    contents.push(new Page(MOUSE_RATING_FORM));
+
     contents.push(new Page(AGE_FORM));
-    contents.push(new Page(GENDER_FORM))
+    contents.push(new Page(GENDER_FORM));
     return contents;
   }
 
   addQuestionPages(contents) {
-    var questions = ["one"];
+    var questions = [
+      "You like books and movies that make you come up with your own interpretation of the ending."]
     // var questions = [
     //   "You like books and movies that make you come up with your own interpretation of the ending.",
     //   "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
@@ -105,7 +112,7 @@ class MainStepper extends React.Component {
   divStepWrapper(boxContent, hasStepper = true) {
     return (
       <div>
-        {hasStepper ? this.getStepper() : null}
+        {/* {hasStepper ? this.getStepper() : null} */}
         {boxContent}
       </div>
     );
@@ -113,7 +120,6 @@ class MainStepper extends React.Component {
 
   getComponent() {
     var pageObject = this.contents[this.props.activeContent];
-    console.log(this.props.activeContent, pageObject);
     var name = pageObject.name;
     if (name === INTRO_PAGE) {
       var introPage = StarterBox(
@@ -170,6 +176,19 @@ class MainStepper extends React.Component {
       );
       return this.divStepWrapper(mouseTask);
     }
+    if (name === MOUSE_INFO_PAGE) {
+      var mouseInfoPage = StarterBox(
+        <MouseInfoPage nextButton={this.getNextButton()} />
+      );
+      return this.divStepWrapper(mouseInfoPage);
+    }
+    if (name === MOUSE_RATING_FORM) {
+      var mouseRatingForm = StarterBox(
+        <MouseRatingForm handleNext={this.handleNext}/>
+      );
+      return this.divStepWrapper(mouseRatingForm);
+    }
+
     return null;
   }
 

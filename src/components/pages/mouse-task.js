@@ -9,22 +9,19 @@ import { MouseSetup } from "./mouse-setup";
 const initialSetupIndex = 0;
 const activeColour = "lime";
 const inactiveColour = "gray";
-const requiredSuccessfulClicks = 2;
+const numRequiredClicks = 2;
 const taskWidth = 36;
 
-
-
-// unordered
 const mouseSetups = [
   new MouseSetup(8, 10),
   new MouseSetup(2, 5),
   new MouseSetup(4, 20),
   new MouseSetup(2, 20),
-  new MouseSetup(4, 10),
-  new MouseSetup(4, 5),
-  new MouseSetup(8, 20),
-  new MouseSetup(8, 5),
-  new MouseSetup(2, 10)
+  // new MouseSetup(4, 10),
+  // new MouseSetup(4, 5),
+  // new MouseSetup(8, 20),
+  // new MouseSetup(8, 5),
+  // new MouseSetup(2, 10)
 ];
 
 class MouseTask extends React.Component {
@@ -76,8 +73,8 @@ class MouseTask extends React.Component {
     return this.getCurrentMouseSetup().distance;
   }
 
-  isTrialComplete() {
-    return this.state.numClicks === requiredSuccessfulClicks;
+  isTrialComplete(numClicks) {
+    return numClicks === numRequiredClicks;
   }
 
   logTrialCompletion() {
@@ -127,13 +124,27 @@ class MouseTask extends React.Component {
     });
   }
 
+  logBoxClick(numClicks) {
+    var date = new Date();
+    var formJson = {
+      universalTime: date.getTime(),
+      timestamp: date.toISOString(),
+      action: "LOG_MOUSE_TASK_BOX_CLICK",
+      state: this.state,
+      numClicks: numClicks
+    };
+    this.props.log(formJson);
+  }
+
   handleBoxClick(e, colour) {
     if (colour === activeColour) {
+      var numClicks = this.state.numClicks + 1;
       this.setState({
-        numClicks: this.state.numClicks + 1,
+        numClicks: numClicks,
       });
+      this.logBoxClick(numClicks);
 
-      if (this.isTrialComplete()) {
+      if (this.isTrialComplete(numClicks)) {
         this.handleTrialCompletion();
       }
 

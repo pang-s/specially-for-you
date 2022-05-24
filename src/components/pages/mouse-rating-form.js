@@ -23,7 +23,7 @@ const labels = {
   5: "Excellent+",
 };
 
-class RatingForm extends React.Component {
+class MouseRatingForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +40,7 @@ class RatingForm extends React.Component {
     let configJson = {
       universalTime: date.getTime(),
       timestamp: date.toISOString(),
-      action: "LOG_ON_MOUNT_RATING_FORM",
+      action: "LOG_ON_MOUNT_MOUSE_RATING_FORM",
       state: this.state,
     };
     this.props.log(configJson);
@@ -70,7 +70,7 @@ class RatingForm extends React.Component {
     var formJson = {
       universalTime: date.getTime(),
       timestamp: date.toISOString(),
-      action: "LOG_RATING_FORM_RESPONSE",
+      action: "LOG_MOUSE_RATING_FORM_RESPONSE",
       state: this.state,
     };
     this.props.logSurveyResponse(formJson);
@@ -141,10 +141,10 @@ class RatingForm extends React.Component {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography>
-              What did you think of the movie recommendations?
+              What did you think of the mouse pointer acceleration recommendations?
               <br></br>
               Rate on a scale of zero (Useless) to five (Excellent) how the
-              movie recommendations was for you.
+              pointer acceleration helped optimise your performance.
             </Typography>
             {this.getHoverRating()}
           </Grid>
@@ -158,7 +158,7 @@ class RatingForm extends React.Component {
   }
 }
 
-RatingForm.propTypes = {
+MouseRatingForm.propTypes = {
   logSurveyResponse: PropTypes.func.isRequired,
   log: PropTypes.func.isRequired,
 };
@@ -166,4 +166,4 @@ RatingForm.propTypes = {
 export default connect(null, {
   logSurveyResponse,
   log,
-})(RatingForm);
+})(MouseRatingForm);
