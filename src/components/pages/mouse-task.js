@@ -10,32 +10,21 @@ const initialSetupIndex = 0;
 const activeColour = "lime";
 const inactiveColour = "gray";
 const requiredSuccessfulClicks = 2;
-const taskWidth = 25;
+const taskWidth = 36;
 
-// ordered
-// const mouseSetups = [
-//   new MouseSetup(0.8, 15),
-//   new MouseSetup(0.4, 15),
-//   new MouseSetup(0.2, 15),
-//   new MouseSetup(0.8, 5),
-//   new MouseSetup(0.4, 5),
-//   new MouseSetup(0.2, 5),
-//   new MouseSetup(0.8, 10),
-//   new MouseSetup(0.4, 10),
-//   new MouseSetup(0.2, 10)
-// ];
+
 
 // unordered
 const mouseSetups = [
-  new MouseSetup(0.8, 10),
-  new MouseSetup(0.2, 5),
-  new MouseSetup(0.4, 15),
-  new MouseSetup(0.2, 15),
-  new MouseSetup(0.4, 10),
-  new MouseSetup(0.4, 5),
-  new MouseSetup(0.8, 15),
-  new MouseSetup(0.8, 5),
-  new MouseSetup(0.2, 10)
+  new MouseSetup(8, 10),
+  new MouseSetup(2, 5),
+  new MouseSetup(4, 20),
+  new MouseSetup(2, 20),
+  new MouseSetup(4, 10),
+  new MouseSetup(4, 5),
+  new MouseSetup(8, 20),
+  new MouseSetup(8, 5),
+  new MouseSetup(2, 10)
 ];
 
 class MouseTask extends React.Component {
