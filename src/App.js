@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import MainStepper from "./components/main/main-stepper";
-import { setDevUserId } from "./actions/init-actions";
+import { setDevUserId, setParticipantNum } from "./actions/init-actions";
 import { getQueryVariable } from "./components/util.js";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -14,12 +14,17 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const participant = getQueryVariable("p");
     const devUserIdString = getQueryVariable("devUserId");
     const devUserIdInt = parseInt(devUserIdString);
     if (devUserIdString !== false) {
       if (!isNaN(devUserIdString) && devUserIdInt >= 0) {
         this.purgeOnNewId(devUserIdInt);
         this.props.setDevUserId(devUserIdInt);
+      }
+
+      if (participant) {
+        this.props.setParticipantNum(participant)
       }
     }
   }
@@ -51,6 +56,7 @@ class App extends React.Component {
 
 App.propTypes = {
   setDevUserId: PropTypes.func.isRequired,
+  setParticipantNum: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -60,5 +66,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setDevUserId,
+  setDevUserId, setParticipantNum
 })(App);

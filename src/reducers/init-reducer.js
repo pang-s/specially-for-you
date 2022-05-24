@@ -1,17 +1,19 @@
 import {
   SET_ACTIVE_STEP,
   SET_ACTIVE_CONTENT,
-  SET_DEV_USER_ID
+  SET_DEV_USER_ID,
+  SET_PARTICIPANT_NUM
 } from "../actions/types";
 import { PURGE } from "redux-persist";
 
 const initialState = {
   devUserId: null,
   activeStep: 0,
-  activeContent: 0
+  activeContent: 0,
+  participantNum: 0
 };
 
-export default (state = initialState, action) => {
+var initReducer = (state = initialState, action) => {
   switch (action.type) {
     case PURGE:
       return initialState;
@@ -30,7 +32,14 @@ export default (state = initialState, action) => {
         ...state,
         activeContent: action.payload,
       };
+    case SET_PARTICIPANT_NUM:
+      return {
+        ...state,
+        participantNum: action.payload,
+      };
     default:
       return state;
   }
 };
+
+export default initReducer;

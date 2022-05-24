@@ -4,7 +4,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
-import { render } from "@testing-library/react";
 
 const movies = [
   {
@@ -40,9 +39,6 @@ const movies = [
 ];
 
 class MoviePage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

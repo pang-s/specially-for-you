@@ -22,6 +22,7 @@ import MouseStartPage from "../pages/mouse-start-page";
 import MouseTask from "../pages/mouse-task";
 import MouseInfoPage from "../pages/mouse-info-page";
 import MouseRatingForm from "../pages/mouse-rating-form";
+import UploadPage from "../pages/upload-page";
 
 const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
@@ -33,6 +34,7 @@ const MOUSE_START_PAGE = "MOUSE_START_PAGE";
 const MOUSE_TASK = "MOUSE_TASK";
 const MOUSE_INFO_PAGE = "MOUSE_INFO_PAGE";
 const MOUSE_RATING_FORM = "MOUSE_RATING_FORM";
+const UPLOAD_PAGE = "UPLOAD_PAGE";
 
 // const questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
 const questions = [
@@ -67,18 +69,22 @@ class MainStepper extends React.Component {
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    contents = this.addQuestionPages(contents);
+    // contents = this.addQuestionPages(contents);
     contents.push(new Page(MOVIE_PAGE));
+    // contents.push(new Page(RATING_FORM));
+
+    // contents.push(new Page(MOUSE_START_PAGE));
+    // contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_INFO_PAGE));
+    // contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_RATING_FORM));
+
+    // contents.push(new Page(AGE_FORM));
+    // contents.push(new Page(GENDER_FORM));
+    contents.push(new Page(UPLOAD_PAGE));
     contents.push(new Page(RATING_FORM));
 
-    contents.push(new Page(MOUSE_START_PAGE));
-    contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_INFO_PAGE));
-    contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_RATING_FORM));
 
-    contents.push(new Page(AGE_FORM));
-    contents.push(new Page(GENDER_FORM));
     return contents;
   }
 
@@ -179,7 +185,16 @@ class MainStepper extends React.Component {
         <MouseRatingForm handleNext={this.handleNext} />
       );
       return this.divStepWrapper(mouseRatingForm);
-    }
+    } 
+    if (name === UPLOAD_PAGE) {
+      var uploadPage = StarterBox(
+        <UploadPage
+          handleNext={this.handleNext}
+          nextButton={this.getNextButton()}
+        />
+      );
+      return this.divStepWrapper(uploadPage);
+    } 
 
     return null;
   }

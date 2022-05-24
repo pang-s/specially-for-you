@@ -6,7 +6,7 @@ const initialState = {
   logs: []
 };
 
-export default (state = initialState, action) => {
+var questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case PURGE:
       return initialState;
@@ -24,3 +24,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default questionsReducer;

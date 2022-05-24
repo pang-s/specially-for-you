@@ -112,24 +112,6 @@ export function countWordsInList(sentences) {
   return count;
 }
 
-
-/**
- * Given the number of Trues and Falses required, created a boolean array of randomised Trues and Falses
- */
-function shuffleTrueFalseArray(trueNum, falseNum) {
-  var arr = [];
-  var trueArray = [...Array(trueNum)].map((x, i) => (true));
-  var falseArray = [...Array(falseNum)].map((x, i) => (false));
-
-  arr = arr.concat(trueArray);
-  arr = arr.concat(falseArray);
-  arr = shuffle(arr);
-
-  return arr;
-}
-
-
-
 /**
  * Given a list that is not empty, return the first item
  */
