@@ -37,7 +37,7 @@ const MOUSE_RATING_FORM = "MOUSE_RATING_FORM";
 const UPLOAD_PAGE = "UPLOAD_PAGE";
 
 // const questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
-const questions = [
+const oddQuestions = [
   "You like books and movies that make you come up with your own interpretation of the ending.",
   "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
   "You usually stay calm, even under a lot of pressure.",
@@ -46,6 +46,10 @@ const questions = [
   "You become bored or lose interest when the discussion gets highly theoretical.",
   "You are very intrigued by things labeled as controversial.",
   "You are definitely not an artistic type of person.",
+];
+
+const evenQuestions = [
+  "1. You like books and movies that make you come up with your own interpretation of the ending."
 ];
 
 class MainStepper extends React.Component {
@@ -69,18 +73,18 @@ class MainStepper extends React.Component {
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    // contents = this.addQuestionPages(contents);
+    contents = this.addQuestionPages(contents);
     contents.push(new Page(MOVIE_PAGE));
-    // contents.push(new Page(RATING_FORM));
+    contents.push(new Page(RATING_FORM));
 
-    // contents.push(new Page(MOUSE_START_PAGE));
-    // contents.push(new Page(MOUSE_TASK));
-    // contents.push(new Page(MOUSE_INFO_PAGE));
-    // contents.push(new Page(MOUSE_TASK));
-    // contents.push(new Page(MOUSE_RATING_FORM));
+    contents.push(new Page(MOUSE_START_PAGE));
+    contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_INFO_PAGE));
+    contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_RATING_FORM));
 
-    // contents.push(new Page(AGE_FORM));
-    // contents.push(new Page(GENDER_FORM));
+    contents.push(new Page(AGE_FORM));
+    contents.push(new Page(GENDER_FORM));
     contents.push(new Page(UPLOAD_PAGE));
     contents.push(new Page(RATING_FORM));
 
@@ -88,7 +92,18 @@ class MainStepper extends React.Component {
     return contents;
   }
 
+  getQuestions() {
+    var devUserId = this.props.devUserId;
+    var questions = oddQuestions;
+    if (devUserId % 2 === 0) {
+      questions = evenQuestions;
+    }
+
+    return questions;
+  }
+
   addQuestionPages(contents) {
+    var questions = this.getQuestions();
     for (let i = 0; i < questions.length; i++) {
       var content = [i + 1, questions[i]];
       contents.push(new Page(QUESTION_PAGE, content));
@@ -133,6 +148,7 @@ class MainStepper extends React.Component {
       return this.divStepWrapper(introPage);
     }
     if (name === QUESTION_PAGE) {
+      var questions = this.getQuestions();
       var content = pageObject.content;
       var questionNumber = content[0].toString();
       var questionText = content[1];
@@ -255,7 +271,8 @@ const mapStateToProps = (state) => {
   return {
     activeStep: state.init.activeStep,
     activeContent: state.init.activeContent,
-  };
+    devUserId: state.init.devUserId
+    };
 };
 
 export default connect(mapStateToProps, {

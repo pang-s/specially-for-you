@@ -16,7 +16,7 @@ import {
 const firebaseApp = initializeApp(FIREBASE_CONFIG);
 const storage = getStorage(firebaseApp);
 const maxAttempts = 3;
-const isFirebaseUpload = false;
+const isFirebaseUpload = true;
 
 class UploadPage extends React.Component {
   constructor(props) {
