@@ -17,12 +17,18 @@ import StepLabel from "@mui/material/StepLabel";
 import MoviePage from "../pages/movie-page";
 import AgeForm from "../pages/age-form";
 import GenderForm from "../pages/gender-form";
-import RatingForm from "../pages/rating-form";
+import RatingForm from "../questions/rating-form";
 import MouseStartPage from "../pages/mouse-start-page";
 import MouseTask from "../pages/mouse-task";
 import MouseInfoPage from "../pages/mouse-info-page";
-import MouseRatingForm from "../pages/mouse-rating-form";
+import MouseRatingForm from "../questions/mouse-rating-form";
 import UploadPage from "../pages/upload-page";
+import PreMoviePage from "../pages/pre-movie-page";
+import CommentPage from "../pages/comment-page";
+import MouseCommentPage from "../pages/mouse-comment-page";
+import { log } from "../../actions/survey-actions";
+import EachMovieRatingForm from "../questions/each-movie-rating-form";
+import MovieSurveyForm from "../questions/movie-survey-form";
 
 const INTRO_PAGE = "INTRO_PAGE";
 const QUESTION_PAGE = "QUESTION_PAGE";
@@ -35,22 +41,11 @@ const MOUSE_TASK = "MOUSE_TASK";
 const MOUSE_INFO_PAGE = "MOUSE_INFO_PAGE";
 const MOUSE_RATING_FORM = "MOUSE_RATING_FORM";
 const UPLOAD_PAGE = "UPLOAD_PAGE";
-
-// const questions = ["You like books and movies that make you come up with your own interpretation of the ending."];
-const oddQuestions = [
-  "You like books and movies that make you come up with your own interpretation of the ending.",
-  "You feel more drawn to places with busy, bustling atmospheres than quiet, intimate places.",
-  "You usually stay calm, even under a lot of pressure.",
-  "Seeing other people cry can easily make you feel like you want to cry too.",
-  "You enjoy watching people argue.",
-  "You become bored or lose interest when the discussion gets highly theoretical.",
-  "You are very intrigued by things labeled as controversial.",
-  "You are definitely not an artistic type of person.",
-];
-
-const evenQuestions = [
-  "1. You like books and movies that make you come up with your own interpretation of the ending."
-];
+const PRE_MOVIE_PAGE = "PRE_MOVIE_PAGE";
+const COMMENT_PAGE = "COMMENT_PAGE";
+const MOUSE_COMMENT_PAGE = "MOUSE_COMMENT_PAGE";
+const EACH_MOVIE_RATING_FORM = "EACH_MOVIE_RATING_FORM";
+const MOVIE_SURVEY_FORM = "MOVIE_SURVEY_FORM";
 
 class MainStepper extends React.Component {
   constructor(props) {
@@ -73,37 +68,31 @@ class MainStepper extends React.Component {
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    contents = this.addQuestionPages(contents);
+    // contents = this.addQuestionPages(contents);
+    contents.push(new Page(PRE_MOVIE_PAGE));
     contents.push(new Page(MOVIE_PAGE));
     contents.push(new Page(RATING_FORM));
+    contents.push(new Page(EACH_MOVIE_RATING_FORM));
+    contents.push(new Page(MOVIE_SURVEY_FORM));
+    contents.push(new Page(COMMENT_PAGE));
+
 
     contents.push(new Page(MOUSE_START_PAGE));
-    contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_INFO_PAGE));
-    contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_INFO_PAGE));
+    // contents.push(new Page(MOUSE_TASK));
     contents.push(new Page(MOUSE_RATING_FORM));
+    contents.push(new Page(MOUSE_COMMENT_PAGE));
 
     contents.push(new Page(AGE_FORM));
     contents.push(new Page(GENDER_FORM));
     contents.push(new Page(UPLOAD_PAGE));
-    contents.push(new Page(RATING_FORM));
-
 
     return contents;
   }
 
-  getQuestions() {
-    var devUserId = this.props.devUserId;
-    var questions = oddQuestions;
-    if (devUserId % 2 === 0) {
-      questions = evenQuestions;
-    }
-
-    return questions;
-  }
-
   addQuestionPages(contents) {
-    var questions = this.getQuestions();
+    var questions = this.props.questions;
     for (let i = 0; i < questions.length; i++) {
       var content = [i + 1, questions[i]];
       contents.push(new Page(QUESTION_PAGE, content));
@@ -148,7 +137,7 @@ class MainStepper extends React.Component {
       return this.divStepWrapper(introPage);
     }
     if (name === QUESTION_PAGE) {
-      var questions = this.getQuestions();
+      var questions = this.props.questions;
       var content = pageObject.content;
       var questionNumber = content[0].toString();
       var questionText = content[1];
@@ -180,6 +169,14 @@ class MainStepper extends React.Component {
       var ratingForm = StarterBox(<RatingForm handleNext={this.handleNext} />);
       return this.divStepWrapper(ratingForm);
     }
+    if (name === EACH_MOVIE_RATING_FORM) {
+      var eachMovieRatingForm = StarterBox(<EachMovieRatingForm handleNext={this.handleNext} />);
+      return this.divStepWrapper(eachMovieRatingForm);
+    }
+    if (name === MOVIE_SURVEY_FORM) {
+      var movieSurveyForm = StarterBox(<MovieSurveyForm handleNext={this.handleNext} />);
+      return this.divStepWrapper(movieSurveyForm);
+    }
     if (name === MOUSE_START_PAGE) {
       var mouseStartPage = StarterBox(
         <MouseStartPage nextButton={this.getNextButton()} />
@@ -210,6 +207,22 @@ class MainStepper extends React.Component {
         />
       );
       return this.divStepWrapper(uploadPage);
+    }
+    if (name === PRE_MOVIE_PAGE) {
+      var preMoviePage = StarterBox(
+        <PreMoviePage nextButton={this.getNextButton()} />
+      );
+      return this.divStepWrapper(preMoviePage);
+    } if (name === COMMENT_PAGE) {
+      var commentPage = StarterBox(
+        <CommentPage handleNext={this.handleNext} />
+      );
+      return this.divStepWrapper(commentPage);
+    } if (name === MOUSE_COMMENT_PAGE) {
+      var mouseCommentPage = StarterBox(
+        <MouseCommentPage handleNext={this.handleNext} />
+      );
+      return this.divStepWrapper(mouseCommentPage);
     } 
 
     return null;
@@ -231,6 +244,18 @@ class MainStepper extends React.Component {
   }
 
   handleNext = (advancePage = true) => {
+
+    var date = new Date();
+    var logJson = {
+      universalTime: date.getTime(),
+      timestamp: date.toISOString(),
+      action: "MAIN_STEPPER_HANDLE_NEXT",
+      activeStep: this.props.activeStep,
+      activeContent: this.props.activeContent
+    };
+    
+    this.props.log(logJson);
+
     this.props.setActiveContent(this.props.activeContent + 1);
     if (advancePage) {
       this.props.setActiveStep(this.props.activeStep + 1);
@@ -240,10 +265,10 @@ class MainStepper extends React.Component {
   getExitPage() {
     return (
       <div>
-        <Box mx="auto" width={900}>
+        <Box mx="auto" width={900} marginTop={2}>
           <Paper elevation={3} height={"100%"} width={"100%"}>
             <Box p={3}>
-              <Typography>Thank you.</Typography>
+              <Typography variant="h5">Thank you.</Typography>
             </Box>
           </Paper>
         </Box>
@@ -265,17 +290,20 @@ class MainStepper extends React.Component {
 MainStepper.propTypes = {
   setActiveStep: PropTypes.func.isRequired,
   setActiveContent: PropTypes.func.isRequired,
+  log: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     activeStep: state.init.activeStep,
     activeContent: state.init.activeContent,
-    devUserId: state.init.devUserId
+    devUserId: state.init.devUserId,
+    questions: state.init.questions
     };
 };
 
 export default connect(mapStateToProps, {
   setActiveStep,
   setActiveContent,
+  log
 })(MainStepper);

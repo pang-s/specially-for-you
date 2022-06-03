@@ -88,7 +88,7 @@ class AgeForm extends React.Component {
       <div>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
-            <Typography>What is your age?</Typography>
+            <Typography variant="h5">What is your age?</Typography>
             <TextField
               // required
               id="age"

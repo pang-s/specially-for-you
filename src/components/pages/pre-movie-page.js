@@ -2,13 +2,19 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { connect } from "react-redux";
 
-export class MouseInfoPage extends React.Component {
+import { Typography } from "@mui/material";
+
+export class PreMoviePage extends React.Component {
   getPersonalisedText() {
     return (
       <Box p={2}>
-        Based on your pointing performance, our system has adjusted pointer acceleration for you.
+        <Typography variant="h5">
+          <b>
+            Based on your answers our system has picked some movies for you.
+          </b>
+        </Typography>
         <br></br>
-        Please repeat the pointing task when ready.
+        Click "NEXT" to see the list.
       </Box>
     );
   }
@@ -16,9 +22,14 @@ export class MouseInfoPage extends React.Component {
   getNonPersonalisedText() {
     return (
       <Box p={2}>
-        Thanks.
+        <Typography variant="h5">
+        <b>
+          Based on your answers our system has picked some movies for the
+          average person.
+        </b>
+        </Typography>
         <br></br>
-        Please repeat the pointing task when ready.
+        Click "NEXT" to see the list.
       </Box>
     );
   }
@@ -41,4 +52,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {})(MouseInfoPage);
+export default connect(mapStateToProps, {})(PreMoviePage);

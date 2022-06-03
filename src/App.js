@@ -1,15 +1,21 @@
 import React from "react";
 import "./App.css";
 import MainStepper from "./components/main/main-stepper";
-import { setDevUserId, setParticipantNum } from "./actions/init-actions";
+import { setDevUserId, setParticipantNum, setQuestions, setIsPersonalised } from "./actions/init-actions";
 import { getQueryVariable } from "./components/util.js";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { getQuestions } from "./components/main/questions";
+import { IdlePage } from "./components/main/idle-page";
+import { isDevPersonalised } from "./components/util";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isShowingMain: false
+    };
     this.purgeOnNewId = this.purgeOnNewId.bind(this);
   }
 
@@ -21,11 +27,20 @@ class App extends React.Component {
       if (!isNaN(devUserIdString) && devUserIdInt >= 0) {
         this.purgeOnNewId(devUserIdInt);
         this.props.setDevUserId(devUserIdInt);
+
+        var isPersonalised = isDevPersonalised(devUserIdInt); 
+        this.props.setIsPersonalised(isPersonalised);
+        var questions = getQuestions(isPersonalised);
+        this.props.setQuestions(questions);
       }
 
       if (participant) {
         this.props.setParticipantNum(participant)
       }
+
+      this.setState({
+        isShowingMain: true,
+      });
     }
   }
 
@@ -45,10 +60,16 @@ class App extends React.Component {
     }
   }
 
+
+
   render() {
     return (
       <div className="App">
-        <MainStepper />
+        {!this.state.isShowingMain ? (
+          IdlePage()
+        ) : (
+          <MainStepper />
+        )}
       </div>
     );
   }
@@ -56,7 +77,9 @@ class App extends React.Component {
 
 App.propTypes = {
   setDevUserId: PropTypes.func.isRequired,
-  setParticipantNum: PropTypes.func.isRequired
+  setParticipantNum: PropTypes.func.isRequired,
+  setQuestions: PropTypes.func.isRequired,
+  setIsPersonalised: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -66,5 +89,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setDevUserId, setParticipantNum
+  setDevUserId, setParticipantNum, setQuestions, setIsPersonalised
 })(App);

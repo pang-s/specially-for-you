@@ -110,7 +110,7 @@ class GenderForm extends React.Component {
       <div>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
-            <Typography>What is your gender?</Typography>
+            <Typography variant="h5">What is your sex?</Typography>
             {this.getGenderSelect()}
           </Grid>
         </Grid>

@@ -2,15 +2,23 @@ import {
   SET_ACTIVE_STEP,
   SET_ACTIVE_CONTENT,
   SET_DEV_USER_ID,
-  SET_PARTICIPANT_NUM
+  SET_PARTICIPANT_NUM,
+  SET_QUESTIONS,
+  SET_IS_PERSONALISED
 } from "../actions/types";
 import { PURGE } from "redux-persist";
+import { getRandomInt } from "../components/util.js"
+
+const randomCode = getRandomInt(10000, 99999);
 
 const initialState = {
   devUserId: null,
+  isPersonalised: true,
   activeStep: 0,
   activeContent: 0,
-  participantNum: 0
+  participantNum: 0,
+  questions: [],
+  code: randomCode
 };
 
 var initReducer = (state = initialState, action) => {
@@ -20,7 +28,12 @@ var initReducer = (state = initialState, action) => {
     case SET_DEV_USER_ID:
       return {
         ...state,
-        devUserId: action.payload,
+        devUserId: action.payload
+      };
+    case SET_IS_PERSONALISED:
+      return {
+        ...state,
+        isPersonalised: action.payload
       };
     case SET_ACTIVE_STEP:
       return {
@@ -36,6 +49,11 @@ var initReducer = (state = initialState, action) => {
       return {
         ...state,
         participantNum: action.payload,
+      };
+    case SET_QUESTIONS:
+      return {
+        ...state,
+        questions: action.payload,
       };
     default:
       return state;

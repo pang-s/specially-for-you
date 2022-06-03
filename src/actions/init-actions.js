@@ -1,5 +1,5 @@
 import {
-  SET_ACTIVE_STEP, SET_ACTIVE_CONTENT, SET_DEV_USER_ID, SET_PARTICIPANT_NUM
+  SET_ACTIVE_STEP, SET_ACTIVE_CONTENT, SET_DEV_USER_ID, SET_PARTICIPANT_NUM, SET_QUESTIONS, SET_IS_PERSONALISED
 } from "./types";
 
 export const setActiveStep = (data) => {
@@ -27,5 +27,19 @@ export const setParticipantNum = (num) => {
   return {
     type: SET_PARTICIPANT_NUM,
     payload: num,
+  };
+};
+
+export const setQuestions = (data) => {
+  return {
+    type: SET_QUESTIONS,
+    payload: data,
+  };
+};
+
+export const setIsPersonalised = (data) => {
+  return {
+    type: SET_IS_PERSONALISED,
+    payload: data,
   };
 };
