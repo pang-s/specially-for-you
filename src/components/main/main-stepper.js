@@ -68,7 +68,7 @@ class MainStepper extends React.Component {
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    // contents = this.addQuestionPages(contents);
+    contents = this.addQuestionPages(contents);
     contents.push(new Page(PRE_MOVIE_PAGE));
     contents.push(new Page(MOVIE_PAGE));
     contents.push(new Page(RATING_FORM));
@@ -78,9 +78,9 @@ class MainStepper extends React.Component {
 
 
     contents.push(new Page(MOUSE_START_PAGE));
-    // contents.push(new Page(MOUSE_TASK));
-    // contents.push(new Page(MOUSE_INFO_PAGE));
-    // contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_INFO_PAGE));
+    contents.push(new Page(MOUSE_TASK));
     contents.push(new Page(MOUSE_RATING_FORM));
     contents.push(new Page(MOUSE_COMMENT_PAGE));
 
@@ -268,7 +268,7 @@ class MainStepper extends React.Component {
         <Box mx="auto" width={900} marginTop={2}>
           <Paper elevation={3} height={"100%"} width={"100%"}>
             <Box p={3}>
-              <Typography variant="h5">Thank you.</Typography>
+              <Typography variant="h5">Thank you. Your completion code is {this.props.code}.</Typography>
             </Box>
           </Paper>
         </Box>
@@ -298,7 +298,8 @@ const mapStateToProps = (state) => {
     activeStep: state.init.activeStep,
     activeContent: state.init.activeContent,
     devUserId: state.init.devUserId,
-    questions: state.init.questions
+    questions: state.init.questions,
+    code: state.init.code
     };
 };
 

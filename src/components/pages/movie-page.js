@@ -36,7 +36,13 @@ class MoviePage extends React.Component {
               description={m.desc}
             ></MovieCard>
           ))}
+
+        <Typography variant="h4" p={3} align="left">
+          When you have finished viewing the movies and are ready to answer some questions press "NEXT".
+        </Typography>
+
         </Box>
+
 
         <Box p={2}>{this.props.nextButton}</Box>
       </div>

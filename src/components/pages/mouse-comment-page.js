@@ -76,7 +76,7 @@ class CommentPage extends React.Component {
             <Box p={2}>
               <Typography variant="h5">
                 Please type any comments you have on the pointer acceleration
-                or scores you gave.
+                or score you gave.
                 <br></br>
                 <br></br>
               </Typography>

@@ -1,12 +1,16 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { connect } from "react-redux";
+import { Typography } from "@mui/material";
 
 export class MouseInfoPage extends React.Component {
   getPersonalisedText() {
     return (
       <Box p={2}>
-        Based on your pointing performance, our system has adjusted pointer acceleration for you.
+        <Typography variant="h5">
+          Based on your pointing performance, our system has adjusted pointer
+          acceleration for you.
+        </Typography>
         <br></br>
         Please repeat the pointing task when ready.
       </Box>
@@ -16,8 +20,9 @@ export class MouseInfoPage extends React.Component {
   getNonPersonalisedText() {
     return (
       <Box p={2}>
-        Thanks.
-        <br></br>
+        <Typography variant="h5">
+          Thanks.
+        </Typography>        <br></br>
         Please repeat the pointing task when ready.
       </Box>
     );

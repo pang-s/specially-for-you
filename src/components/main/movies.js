@@ -55,8 +55,8 @@ export const movies = [
     },
     {
       key: 10,
-      name: "Spirited Away (2001)",
-      desc: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
-      image: require("../../assets/spirited.jpg"),
+      name: "Alvin and the Chipmunks (2007)",
+      desc: "Three musical chipmunks are discovered by an aspiring songwriter who wants to use their amazing singing abilities to become famous.",
+      image: require("../../assets/alvin.jpg"),
     },
   ];

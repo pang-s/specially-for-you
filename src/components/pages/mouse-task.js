@@ -9,7 +9,7 @@ import { MouseSetup } from "./mouse-setup";
 const initialSetupIndex = 0;
 const activeColour = "lime";
 const inactiveColour = "gray";
-const numRequiredClicks = 6;
+const numRequiredClicks = 4;
 const taskWidth = 36;
 
 const mouseSetups = [
