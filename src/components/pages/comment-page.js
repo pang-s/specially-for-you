@@ -95,6 +95,7 @@ class CommentPage extends React.Component {
                     }}
                     onChange={this.handleTextFieldChange}
                     variant="outlined"
+                    inputProps={{ maxLength: 1000 }}
                   />
                 </Box>
                 <Box p={2}>
