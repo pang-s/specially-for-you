@@ -155,7 +155,7 @@ class MovieSurveyForm extends React.Component {
           <Grid p={2} container>
           <Grid item xs={12}>
             <Typography variant="h5">
-            Please answer the questions below about the movie recommendations.
+            Please answer the questions below.
 
             </Typography>
             <Typography>
