@@ -1,17 +1,10 @@
 import {
-  SET_ACTIVE_STEP, SET_ACTIVE_CONTENT, SET_DEV_USER_ID, SET_PARTICIPANT_NUM, SET_QUESTIONS, SET_IS_PERSONALISED
+  SET_ACTIVE_STEP, SET_DEV_USER_ID, SET_PARTICIPANT_NUM, SET_QUESTIONS, SET_IS_PERSONALISED
 } from "./types";
 
 export const setActiveStep = (data) => {
   return {
     type: SET_ACTIVE_STEP,
-    payload: data,
-  };
-};
-
-export const setActiveContent = (data) => {
-  return {
-    type: SET_ACTIVE_CONTENT,
     payload: data,
   };
 };

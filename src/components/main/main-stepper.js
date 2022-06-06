@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import IntroPage from "../pages/intro-page";
 import { Page } from "./page";
 import { QontoConnector, QontoStepIcon } from "./qonto-connector";
-import { setActiveStep, setActiveContent } from "../../actions/init-actions.js";
+import { setActiveStep } from "../../actions/init-actions.js";
 import QuestionPage from "../pages/question-page";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -128,7 +128,7 @@ class MainStepper extends React.Component {
   }
 
   getComponent() {
-    var pageObject = this.contents[this.props.activeContent];
+    var pageObject = this.contents[this.props.activeStep];
     var name = pageObject.name;
     if (name === INTRO_PAGE) {
       var introPage = StarterBox(
@@ -238,28 +238,27 @@ class MainStepper extends React.Component {
 
   isLastStep() {
     return (
-      this.props.activeContent !== 0 &&
-      this.props.activeContent === this.steps.length - 1
+      this.props.activeStep !== 0 &&
+      this.props.activeStep === this.steps.length - 1
     );
   }
 
-  handleNext = (advancePage = true) => {
+  handleNext = () => {
 
     var date = new Date();
+    var currentPage = this.contents === null ? null : this.contents[this.props.activeStep].name;
     var logJson = {
       universalTime: date.getTime(),
       timestamp: date.toISOString(),
       action: "MAIN_STEPPER_HANDLE_NEXT",
       activeStep: this.props.activeStep,
-      activeContent: this.props.activeContent
+      currentPage: currentPage
     };
     
     this.props.log(logJson);
 
-    this.props.setActiveContent(this.props.activeContent + 1);
-    if (advancePage) {
-      this.props.setActiveStep(this.props.activeStep + 1);
-    }
+    this.props.setActiveStep(this.props.activeStep + 1);
+    
   };
 
   getExitPage() {
@@ -279,7 +278,7 @@ class MainStepper extends React.Component {
   render() {
     return (
       <div>
-        {this.props.activeContent === this.numPages
+        {this.props.activeStep === this.numPages
           ? this.getExitPage()
           : this.getComponent()}
       </div>
@@ -289,14 +288,12 @@ class MainStepper extends React.Component {
 
 MainStepper.propTypes = {
   setActiveStep: PropTypes.func.isRequired,
-  setActiveContent: PropTypes.func.isRequired,
   log: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     activeStep: state.init.activeStep,
-    activeContent: state.init.activeContent,
     devUserId: state.init.devUserId,
     questions: state.init.questions,
     code: state.init.code
@@ -305,6 +302,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   setActiveStep,
-  setActiveContent,
   log
 })(MainStepper);

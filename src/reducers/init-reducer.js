@@ -1,6 +1,5 @@
 import {
   SET_ACTIVE_STEP,
-  SET_ACTIVE_CONTENT,
   SET_DEV_USER_ID,
   SET_PARTICIPANT_NUM,
   SET_QUESTIONS,
@@ -15,7 +14,6 @@ const initialState = {
   devUserId: null,
   isPersonalised: true,
   activeStep: 0,
-  activeContent: 0,
   participantNum: 0,
   questions: [],
   code: randomCode
@@ -39,11 +37,6 @@ var initReducer = (state = initialState, action) => {
       return {
         ...state,
         activeStep: action.payload,
-      };
-    case SET_ACTIVE_CONTENT:
-      return {
-        ...state,
-        activeContent: action.payload,
       };
     case SET_PARTICIPANT_NUM:
       return {
