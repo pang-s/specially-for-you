@@ -1,7 +1,15 @@
 import React from "react";
 import "./App.css";
 import MainStepper from "./components/main/main-stepper";
-import { setDevUserId, setParticipantNum, setQuestions, setIsPersonalised } from "./actions/init-actions";
+import {
+  setDevUserId,
+  setParticipantNum,
+  setQuestions,
+  setIsPersonalised,
+  setAssignmentId,
+  setWorkerId,
+  setHitId,
+} from "./actions/init-actions";
 import { getQueryVariable } from "./components/util.js";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -14,7 +22,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      isShowingMain: false
+      isShowingMain: false,
     };
     this.purgeOnNewId = this.purgeOnNewId.bind(this);
   }
@@ -22,20 +30,38 @@ class App extends React.Component {
   componentDidMount() {
     const participant = getQueryVariable("p");
     const devUserIdString = getQueryVariable("devUserId");
+
+    const assignmentId = getQueryVariable("assignmentId");
+    const workerId = getQueryVariable("workerId");
+    const hitId = getQueryVariable("hitId");
+
+
     const devUserIdInt = parseInt(devUserIdString);
     if (devUserIdString !== false) {
       if (!isNaN(devUserIdString) && devUserIdInt >= 0) {
         this.purgeOnNewId(devUserIdInt);
         this.props.setDevUserId(devUserIdInt);
 
-        var isPersonalised = isDevPersonalised(devUserIdInt); 
+        var isPersonalised = isDevPersonalised(devUserIdInt);
         this.props.setIsPersonalised(isPersonalised);
         var questions = getQuestions(isPersonalised);
         this.props.setQuestions(questions);
       }
 
       if (participant) {
-        this.props.setParticipantNum(participant)
+        this.props.setParticipantNum(participant);
+      }
+
+      if (assignmentId) {
+        this.props.setAssignmentId(assignmentId);
+      }
+
+      if (workerId) {
+        this.props.setWorkerId(workerId);
+      }
+
+      if (hitId) {
+        this.props.setHitId(hitId);
       }
 
       this.setState({
@@ -60,16 +86,10 @@ class App extends React.Component {
     }
   }
 
-
-
   render() {
     return (
       <div className="App">
-        {!this.state.isShowingMain ? (
-          IdlePage()
-        ) : (
-          <MainStepper />
-        )}
+        {!this.state.isShowingMain ? IdlePage() : <MainStepper />}
       </div>
     );
   }
@@ -79,7 +99,10 @@ App.propTypes = {
   setDevUserId: PropTypes.func.isRequired,
   setParticipantNum: PropTypes.func.isRequired,
   setQuestions: PropTypes.func.isRequired,
-  setIsPersonalised: PropTypes.func.isRequired
+  setIsPersonalised: PropTypes.func.isRequired,
+  setAssignmentId: PropTypes.func.isRequired,
+  setWorkerId: PropTypes.func.isRequired,
+  setHitId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -89,5 +112,11 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  setDevUserId, setParticipantNum, setQuestions, setIsPersonalised
+  setDevUserId,
+  setParticipantNum,
+  setQuestions,
+  setIsPersonalised,
+  setAssignmentId,
+  setWorkerId,
+  setHitId,
 })(App);

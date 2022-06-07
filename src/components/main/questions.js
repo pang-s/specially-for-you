@@ -40,7 +40,7 @@ const nonPersonalisedQuestions = [
   "An average person enjoys watching people argue.",
   "An average person will become bored or lose interest when the discussion gets highly theoretical.",
   "An average person is very intrigued by things labeled as controversial.",
-  "An average person often end up doing things at the last possible moment.",
+  "An average person often ends up doing things at the last possible moment.",
   "After a long and exhausting week, a lively social event is just what an average person needs.",
   "An average person spends a lot of their free time exploring various random topics that piques their interest.",
   "An average person often makes a backup plan for a backup plan.",
@@ -71,7 +71,7 @@ export const surveyQuestions = [
   "The recommendations contained a lot of variety.",
   "The recommendations represent mainstream tastes instead of my own.",
   "The recommended movies are familiar to me.",
-  "The recommended movies fitted my preferences.",
+  "The recommended movies fit my preference.",
   "I am a movie lover.",
 ];
 // const personalisedQuestions = ["personalised."];

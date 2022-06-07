@@ -95,9 +95,9 @@ class GenderForm extends React.Component {
           variant="standard"
           defaultValue=""
         >
-          <MenuItem value={"Female"}>Female</MenuItem>
-          <MenuItem value={"Male"}>Male</MenuItem>
-          <MenuItem value={"Other"}>Other</MenuItem>
+          <MenuItem value={"Woman"}>Woman</MenuItem>
+          <MenuItem value={"Man"}>Man</MenuItem>
+          <MenuItem value={"Not listed"}>Not listed</MenuItem>
           <MenuItem value={"Prefer not to say"}>Prefer not to say</MenuItem>
         </Select>
       </FormControl>
@@ -110,7 +110,7 @@ class GenderForm extends React.Component {
       <div>
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
-            <Typography variant="h5">What is your sex?</Typography>
+            <Typography variant="h5">What is your gender?</Typography>
             {this.getGenderSelect()}
           </Grid>
         </Grid>

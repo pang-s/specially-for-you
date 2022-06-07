@@ -77,7 +77,7 @@ class CommentPage extends React.Component {
               <Box width={"100%"}>
                 <Box p={2}>
                   <Typography variant="h5">
-                    Please type any comments you have on the recommendations or scores you gave.
+                    Please type any comments you have on the recommendations or ratings you gave.
                     <br></br>
                     <br></br>
                   </Typography>

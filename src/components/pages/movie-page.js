@@ -17,6 +17,9 @@ class MoviePage extends React.Component {
           ? "Movie recommendations for you"
           : "Movie recommendations"}
         </Typography>
+        <Typography variant="h5" p={3} align="left">
+        Please read the description of each movie, especially if you haven't already seen that movie, and be ready to answer some questions about these movies.
+        </Typography>
         <Box
           display="flex"
           sx={{
@@ -37,9 +40,7 @@ class MoviePage extends React.Component {
             ></MovieCard>
           ))}
 
-        <Typography variant="h4" p={3} align="left">
-          When you have finished viewing the movies and are ready to answer some questions press "NEXT".
-        </Typography>
+
 
         </Box>
 

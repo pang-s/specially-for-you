@@ -14,7 +14,7 @@ export class MouseStartPage extends React.Component {
                         <br></br>
                         <b>Part 2 instructions:</b>
                         <br></br>
-                        Click on the green column target as quickly and accurately as possible.
+                        Click anywhere on the green column target as quickly and accurately as possible.
                         <br></br>
                         The task should take about 30 seconds.
 
