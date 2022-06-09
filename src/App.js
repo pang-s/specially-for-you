@@ -9,13 +9,14 @@ import {
   setAssignmentId,
   setWorkerId,
   setHitId,
+  setIsGood
 } from "./actions/init-actions";
 import { getQueryVariable } from "./components/util.js";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getQuestions } from "./components/main/questions";
 import { IdlePage } from "./components/main/idle-page";
-import { isDevPersonalised } from "./components/util";
+import { isEven } from "./components/util";
 
 class App extends React.Component {
   constructor(props) {
@@ -39,11 +40,15 @@ class App extends React.Component {
     const devUserIdInt = parseInt(devUserIdString);
     if (devUserIdString !== false) {
       if (!isNaN(devUserIdString) && devUserIdInt >= 0) {
-        this.purgeOnNewId(devUserIdInt);
+        this.purgeOnNewId(devUserIdInt, participant);
         this.props.setDevUserId(devUserIdInt);
 
-        var isPersonalised = isDevPersonalised(devUserIdInt);
+        var isPersonalised = isEven(devUserIdInt);
         this.props.setIsPersonalised(isPersonalised);
+
+        var isGood = isEven(participant);
+        this.props.setIsGood(isGood);
+
         var questions = getQuestions(isPersonalised);
         this.props.setQuestions(questions);
       }
@@ -77,10 +82,19 @@ class App extends React.Component {
     return isNewUser;
   }
 
-  purgeOnNewId(devUserIdInt) {
+  isNewParticipant(participantNum) {
+    var isNewParticipant =
+      this.props.init.participantNum !== null &&
+      this.props.init.participantNum !== participantNum;
+    return isNewParticipant;
+  }
+
+  purgeOnNewId(devUserIdInt, participant) {
     var isNewUser = this.isNewDevUserId(devUserIdInt);
+    var isNewParticipant = this.isNewParticipant(participant)
+
     console.log("new user ", devUserIdInt);
-    if (isNewUser) {
+    if (isNewUser || isNewParticipant) {
       // Reset/purge if new devUserId is given
       this.props.persistor.purge();
     }
@@ -103,6 +117,7 @@ App.propTypes = {
   setAssignmentId: PropTypes.func.isRequired,
   setWorkerId: PropTypes.func.isRequired,
   setHitId: PropTypes.func.isRequired,
+  setIsGood: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -119,4 +134,5 @@ export default connect(mapStateToProps, {
   setAssignmentId,
   setWorkerId,
   setHitId,
+  setIsGood
 })(App);

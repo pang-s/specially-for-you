@@ -154,6 +154,7 @@ export const getIndexDifficulty = (amplitude, width) => {
   return Math.log2((amplitude / width) + 1);
 }
 
-export function isDevPersonalised(devUserId){
-  return devUserId % 2 === 0;
+export function isEven(num){
+  return num % 2 === 0;
 }
+

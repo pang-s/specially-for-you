@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
-import { movies } from "../main/movies";
+import { goodMovies } from "../main/movies";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -20,7 +20,7 @@ const imgHeight = 326 * 0.8;
 class EachMovieRatingForm extends React.Component {
   constructor(props) {
     super(props);
-    const movieLength = movies.length;
+    const movieLength = goodMovies.length;
     var isSeenArray = new Array(movieLength).fill(null);
     var ratingArray = new Array(movieLength).fill(null);
 
@@ -201,7 +201,7 @@ class EachMovieRatingForm extends React.Component {
         >
           <Typography>Questions part 2/3</Typography>
           <Grid p={2} container>
-            {movies.map((m) => this.showQuestionRow(m))}
+            {goodMovies.map((m) => this.showQuestionRow(m))}
           </Grid>
 
           <Box p={2}>

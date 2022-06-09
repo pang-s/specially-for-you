@@ -3,19 +3,41 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { MovieCard } from "./movie-card";
 import { connect } from "react-redux";
-import { movies } from "../main/movies";
+import { goodMovies, badMovies } from "../main/movies";
 
 class MoviePage extends React.Component {
+
+  getGoodMovies(){
+    return(
+      goodMovies.map((m) => (
+        <MovieCard
+          key={m.key}
+          image={m.image}
+          title={m.name}
+          description={m.desc}
+        ></MovieCard>
+      ))
+    );
+  }
+  
+  getBadMovies(){
+    return(
+      badMovies.map((m) => (
+        <MovieCard
+          key={m.key}
+          image={m.image}
+          title={m.name}
+          description={m.desc}
+        ></MovieCard>
+      ))
+    );
+  }
+  
   render() {
     return (
       <div>
-        {/* <Typography variant="h2" gutterBottom>
-          Movies
-        </Typography> */}
         <Typography variant="h2" align="center" gutterBottom>
-          {this.props.isPersonalised
-          ? "Movie recommendations for you"
-          : "Movie recommendations"}
+        Movie recommendations
         </Typography>
         <Typography variant="h5" p={3} align="left">
         Please read the description of each movie, especially if you haven't already seen that movie, and be ready to answer some questions about these movies.
@@ -30,17 +52,9 @@ class MoviePage extends React.Component {
           }}
         >
           
-          {movies.map((m) => (
-            <MovieCard
-              
-              key={m.key}
-              image={m.image}
-              title={m.name}
-              description={m.desc}
-            ></MovieCard>
-          ))}
-
-
+          {this.props.isGood
+          ? this.getGoodMovies()
+          : this.getBadMovies()}
 
         </Box>
 
@@ -56,6 +70,7 @@ class MoviePage extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isPersonalised: state.init.isPersonalised,
+    isGood: state.init.isGood
   };
 };
 

@@ -21,3 +21,4 @@ export const SET_IS_PERSONALISED = "SET_IS_PERSONALISED";
 export const SET_WORKER_ID = "SET_WORKER_ID";
 export const SET_ASSIGNMENT_ID = "SET_ASSIGNMENT_ID";
 export const SET_HIT_ID = "SET_HIT_ID"
+export const SET_IS_GOOD = "SET_IS_GOOD"

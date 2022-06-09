@@ -1,6 +1,6 @@
 import {
   SET_ACTIVE_STEP, SET_DEV_USER_ID, SET_PARTICIPANT_NUM, SET_QUESTIONS, SET_IS_PERSONALISED,
-  SET_WORKER_ID, SET_ASSIGNMENT_ID, SET_HIT_ID
+  SET_WORKER_ID, SET_ASSIGNMENT_ID, SET_HIT_ID, SET_IS_GOOD
 } from "./types";
 
 export const setActiveStep = (data) => {
@@ -57,6 +57,13 @@ export const setAssignmentId = (data) => {
 export const setHitId = (data) => {
   return {
     type: SET_HIT_ID,
+    payload: data,
+  };
+};
+
+export const setIsGood = (data) => {
+  return {
+    type: SET_IS_GOOD,
     payload: data,
   };
 };

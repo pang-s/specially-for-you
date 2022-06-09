@@ -68,8 +68,8 @@ class MainStepper extends React.Component {
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    contents = this.addQuestionPages(contents);
-    contents.push(new Page(PRE_MOVIE_PAGE));
+    // contents = this.addQuestionPages(contents);
+    // contents.push(new Page(PRE_MOVIE_PAGE));
     contents.push(new Page(MOVIE_PAGE));
     contents.push(new Page(RATING_FORM));
     contents.push(new Page(EACH_MOVIE_RATING_FORM));
