@@ -29,7 +29,7 @@ export class MouseInfoPage extends React.Component {
         <br></br>
         The pointer acceleration will be different this time.  
         <br></br>
-        Based on pointing performance from a large number of people, our system has the adjusted pointer acceleration. 
+        Based on pointing performance from an average person, our system has the adjusted pointer acceleration. 
         </Typography>        
         <br></br>
         Please press "NEXT" when ready.
