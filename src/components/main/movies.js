@@ -51,7 +51,7 @@ export const goodMovies = [
     {
       key: 8,
       name: "Harry Potter and the Order of the Phoenix (2007)",
-      ratiing: 7.5,
+      rating: 7.5,
       desc: "With their warning about Lord Voldemort's return scoffed at, Harry and Dumbledore are targeted by the Wizard authorities as an authoritarian bureaucrat slowly seizes power at Hogwarts.",
       image: require("../../assets/hp.jpg"),
     },

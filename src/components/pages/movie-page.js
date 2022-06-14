@@ -13,6 +13,7 @@ class MoviePage extends React.Component {
         <MovieCard
           key={m.key}
           image={m.image}
+          rating={m.rating}
           title={m.name}
           description={m.desc}
         ></MovieCard>

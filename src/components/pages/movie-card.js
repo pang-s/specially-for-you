@@ -26,7 +26,7 @@ export class MovieCard extends React.Component {
               height={imgHeight}
               image={this.props.image}
             />
-            <CardContent sx={{ height: 330 }}>
+            <CardContent sx={{ height: 360 }}>
               <Typography gutterBottom variant="h5" component="div">
                 {this.props.title}
               </Typography>
