@@ -65,11 +65,12 @@ class MainStepper extends React.Component {
 
   getContents() {
     var contents = [];
+    
     contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    // contents = this.addQuestionPages(contents);
-    // contents.push(new Page(PRE_MOVIE_PAGE));
+    contents = this.addQuestionPages(contents);
+    contents.push(new Page(PRE_MOVIE_PAGE));
     contents.push(new Page(MOVIE_PAGE));
     contents.push(new Page(EACH_MOVIE_RATING_FORM));
     contents.push(new Page(MOVIE_SURVEY_FORM));
@@ -222,7 +223,7 @@ class MainStepper extends React.Component {
         <MouseCommentPage handleNext={this.handleNext} />
       );
       return this.divStepWrapper(mouseCommentPage);
-    } 
+    }
 
     return null;
   }
