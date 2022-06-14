@@ -8,13 +8,13 @@ import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
 import { surveyQuestions } from "../main/questions";
-import { styled } from '@mui/material/styles';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
+import { styled } from "@mui/material/styles";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 const StyledRating = styled(Rating)({
-  '& .MuiRating-iconFilled': {
-    color: '#000000',
+  "& .MuiRating-iconFilled": {
+    color: "#000000",
   },
   // '& .MuiRating-iconHover': {
   //   color: '#ff3d47',
@@ -117,9 +117,7 @@ class MovieSurveyForm extends React.Component {
               this.handleChange(event, newValue, i);
             }}
             icon={<CheckCircleOutlineIcon fontSize="medium" />}
-            emptyIcon={
-              <CircleOutlinedIcon  fontSize="medium" />
-            }
+            emptyIcon={<CircleOutlinedIcon fontSize="medium" />}
             highlightSelectedOnly
           />
           <Typography sx={{ ml: 2 }}>10=Strongly agree</Typography>
@@ -128,41 +126,42 @@ class MovieSurveyForm extends React.Component {
     );
   }
 
-
   showQuestionRow(question, i) {
     return (
       <Grid item xs={12} p={2} key={i}>
-
         <Typography variant="h6">
           <br></br>
           {question}
         </Typography>
         {this.getHoverRating(i)}
       </Grid>
-    );  }
+    );
+  }
 
   render() {
     return (
       <div>
+        <Typography variant="h4">Questions</Typography>
+        Part 3/3
         <Box
           display="flex"
           sx={{
             flexWrap: "wrap",
           }}
         >
-          <Typography>Questions part 3/3</Typography>
-
           <Grid p={2} container>
-          <Grid item xs={12}>
-            <Typography variant="h5">
-            Please answer the questions below.
-
-            </Typography>
-            <Typography>
-              Please rate on a scale of 1 to 10, where 1 means "Strongly Disagree" and 10 means "Strongly Agree".
-            </Typography>
-</Grid>
-            {surveyQuestions.map((question, index) => this.showQuestionRow(question, index))}
+            <Grid item xs={12}>
+              <Typography variant="h5">
+                Please answer the questions below.
+              </Typography>
+              <Typography>
+                Please rate on a scale of 1 to 10, where 1 means "Strongly
+                Disagree" and 10 means "Strongly Agree".
+              </Typography>
+            </Grid>
+            {surveyQuestions.map((question, index) =>
+              this.showQuestionRow(question, index)
+            )}
           </Grid>
 
           <Box p={2}>

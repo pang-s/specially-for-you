@@ -158,7 +158,7 @@ class EachMovieRatingForm extends React.Component {
   showMovieCard(m) {
     return (
       <Grid item xs={4} p={2} key={"img" + m.key}>
-        <img align="right" width={imgWidth} height={imgHeight} src={m.image} />
+        <img align="right" width={imgWidth} height={imgHeight} src={m.image} alt="" />
       </Grid>
     );
   }
@@ -193,14 +193,16 @@ class EachMovieRatingForm extends React.Component {
   render() {
     return (
       <div>
+        <Typography variant="h4">Questions</Typography>
+        Part 2/3
         <Box
           display="flex"
           sx={{
             flexWrap: "wrap",
           }}
         >
-          <Typography>Questions part 2/3</Typography>
-          <Grid p={2} container>
+
+                  <Grid p={2} container>
             {goodMovies.map((m) => this.showQuestionRow(m))}
           </Grid>
 

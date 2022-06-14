@@ -141,7 +141,8 @@ class RatingForm extends React.Component {
   render() {
     return (
       <div>
-        Questions part 1/3
+        <Typography variant="h4">Questions</Typography>
+        Part 1/3
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography variant="h5">

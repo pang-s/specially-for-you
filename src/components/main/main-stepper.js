@@ -71,7 +71,6 @@ class MainStepper extends React.Component {
     // contents = this.addQuestionPages(contents);
     // contents.push(new Page(PRE_MOVIE_PAGE));
     contents.push(new Page(MOVIE_PAGE));
-    contents.push(new Page(RATING_FORM));
     contents.push(new Page(EACH_MOVIE_RATING_FORM));
     contents.push(new Page(MOVIE_SURVEY_FORM));
     contents.push(new Page(COMMENT_PAGE));
@@ -153,7 +152,7 @@ class MainStepper extends React.Component {
     }
     if (name === MOVIE_PAGE) {
       var moviePage = StarterBox(
-        <MoviePage nextButton={this.getNextButton()} />
+        <MoviePage handleNext={this.handleNext}/>
       );
       return this.divStepWrapper(moviePage);
     }
