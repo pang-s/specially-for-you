@@ -6,8 +6,9 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 
-const imgWidth = 220*1.1;
-const imgHeight = 326*1.1;
+const factor = 1.1;
+const imgWidth = 220*factor;
+const imgHeight = 326*factor;
 
 export class MovieCard extends React.Component {
   render() {

@@ -22,7 +22,7 @@ const initialState = {
   participantNum: 0,
   questions: [],
   code: randomCode,
-
+  browser: window.navigator.userAgent,
   workerId: "",
   assignmentId: "",
   hitId: "",
