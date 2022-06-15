@@ -8,11 +8,11 @@ import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
-import { goodMovies } from "../main/movies";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import { goodMovies, badMovies } from "../main/movies";
 
 const imgWidth = 220 * 0.8;
 const imgHeight = 326 * 0.8;
@@ -190,6 +190,14 @@ class EachMovieRatingForm extends React.Component {
     return [this.showMovieCard(m), this.showMovieQuestion(m)];
   }
 
+  getGoodMovies() {
+    return(goodMovies.map((m) => this.showQuestionRow(m)));
+  }
+
+  getBadMovies() {
+    return(badMovies.map((m) => this.showQuestionRow(m)));
+  }
+
   render() {
     return (
       <div>
@@ -202,8 +210,8 @@ class EachMovieRatingForm extends React.Component {
           }}
         >
 
-                  <Grid p={2} container>
-            {goodMovies.map((m) => this.showQuestionRow(m))}
+          <Grid p={2} container>
+            {this.props.isGood ? this.getGoodMovies() : this.getBadMovies()}
           </Grid>
 
           <Box p={2}>
@@ -222,7 +230,13 @@ EachMovieRatingForm.propTypes = {
   log: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return {
+    isGood: state.init.isGood,
+  };
+};
+
+export default connect(mapStateToProps, {
   logSurveyResponse,
   log,
 })(EachMovieRatingForm);
