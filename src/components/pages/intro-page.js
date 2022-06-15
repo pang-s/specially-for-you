@@ -1,43 +1,47 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import ReCAPTCHA from "react-google-recaptcha";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { log } from "../../actions/survey-actions";
 
 export class IntroPage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      // showNextButton: false,
       captchaValue: null
     };
   }
 
-  // onChange(value) {
-  //   console.log(value);
-  //   var isShowNextButton = false;
-  //   if (value !== null) {
-  //     isShowNextButton = true;
-  //   }
+  componentDidMount() {
+    let date = new Date();
+    let configJson = {
+      universalTime: date.getTime(),
+      timestamp: date.toISOString(),
+      action: "INTRO_PAGE_LOG_ON_MOUNT",
+    };
 
-  //   this.setState({
-  //     captchaValue: value,
-  //     showNextButton: isShowNextButton
-  //   })
-  // }
+    this.props.log(configJson);
+  }
 
   onChange = value => {
     console.log("onChange prop - Captcha value:", value);
-    // var isShowNextButton = false;
-    // if (value !== null) {
-    //   isShowNextButton = true;
-    // }
 
     this.setState({
       captchaValue: value,
     })
     
-    // this.setState({ value });
-    // if (value === null) this.setState({ expired: "true" });
+    let date = new Date();
+    let log = {
+      universalTime: date.getTime(),
+      timestamp: date.toISOString(),
+      action: "RECAPTCHA_UPDATE",
+      state: this.state,
+      captchaValue: value
+    };
+
+    this.props.log(log);
   };
 
 
@@ -80,4 +84,13 @@ export class IntroPage extends React.Component {
   }
 }
 
-export default IntroPage;
+
+
+IntroPage.propTypes = {
+  log: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  log,
+})(IntroPage);
+
