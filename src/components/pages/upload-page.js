@@ -30,6 +30,7 @@ class UploadPage extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (isFirebaseUpload) {
       this.saveJsonFile();
     }
@@ -43,10 +44,10 @@ class UploadPage extends React.Component {
   }
 
   saveJsonFile = () => {
-    this.setState({
+    this.setState((state, props) => ({
       hasUploaded: false,
-      numAttempts: this.state.numAttempts + 1,
-    });
+      numAttempts: state.numAttempts + 1,    
+    }));
 
     var date = new Date();
     var folder = "participant_" + this.props.init.participantNum;

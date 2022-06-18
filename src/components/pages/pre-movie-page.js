@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { Typography } from "@mui/material";
 
 export class PreMoviePage extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   getPersonalisedText() {
     return (
       <Box p={2}>

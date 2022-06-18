@@ -3,6 +3,10 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 
 export class MouseStartPage extends React.Component {
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return (
             <div>

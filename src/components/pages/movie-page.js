@@ -8,6 +8,10 @@ import RatingForm from "../questions/rating-form";
 import Divider from "@mui/material/Divider";
 
 class MoviePage extends React.Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   getGoodMovies() {
     return goodMovies.map((m) => (
       <MovieCard

@@ -38,6 +38,8 @@ class MouseTask extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     let date = new Date();
     let configJson = {
       universalTime: date.getTime(),
@@ -93,16 +95,16 @@ class MouseTask extends React.Component {
   }
 
   setupNewTrial() {
-    this.setState({
-      currentSetupIndex: this.state.currentSetupIndex + 1,
+    this.setState((state, props) => ({
+      currentSetupIndex: state.currentSetupIndex + 1,
       numClicks: 0,
-    });
+    }));
   }
 
   handleTrialCompletion() {
-    this.setState({
-      trialsDone: this.state.trialsDone + 1,
-    });
+    this.setState((state, props) => ({
+      trialsDone: state.trialsDone + 1
+    }));
 
     this.logTrialCompletion();
 

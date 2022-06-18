@@ -15,6 +15,7 @@ export class IntroPage extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     let date = new Date();
     let configJson = {
       universalTime: date.getTime(),

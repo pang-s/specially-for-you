@@ -74,9 +74,7 @@ export const surveyQuestions = [
   "The recommended movies fit my preference.",
   "I am a movie lover.",
 ];
-// const personalisedQuestions = ["personalised."];
 
-// const nonPersonalisedQuestions = ["non personalised."];
 
 export function getQuestions(isPersonalised) {
   if (isPersonalised) {
