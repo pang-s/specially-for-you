@@ -14,9 +14,9 @@ export class PreMoviePage extends React.Component {
       <Box p={2}>
         <Typography variant="h5">
           <b>
-            Thank you for your answers.
+            Thanks.
             <br></br>
-            Based on your answers, our system has picked some movies for you.
+            Based on your answers (about yourself), our system has picked some movies for you.
           </b>
         </Typography>
         <br></br>
@@ -30,9 +30,9 @@ export class PreMoviePage extends React.Component {
       <Box p={2}>
         <Typography variant="h5">
         <b>
-          Thank you for your answers.
+          Thanks.
           <br></br>
-          Based on your answers, our system has picked some movies for you.
+          Based on your answers (about the average person), our system has picked some movies for you.
         </b>
         </Typography>
         <br></br>
