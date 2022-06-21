@@ -66,19 +66,19 @@ class MainStepper extends React.Component {
   getContents() {
     var contents = [];
     
-    // contents.push(new Page(INTRO_PAGE));
+    contents.push(new Page(INTRO_PAGE));
 
     // Questions
-    // contents = this.addQuestionPages(contents);
-    // contents.push(new Page(PRE_MOVIE_PAGE));
-    // contents.push(new Page(MOVIE_PAGE));
-    // contents.push(new Page(EACH_MOVIE_RATING_FORM));
-    // contents.push(new Page(MOVIE_SURVEY_FORM));
-    // contents.push(new Page(COMMENT_PAGE));
+    contents = this.addQuestionPages(contents);
+    contents.push(new Page(PRE_MOVIE_PAGE));
+    contents.push(new Page(MOVIE_PAGE));
+    contents.push(new Page(EACH_MOVIE_RATING_FORM));
+    contents.push(new Page(MOVIE_SURVEY_FORM));
+    contents.push(new Page(COMMENT_PAGE));
 
 
-    // contents.push(new Page(MOUSE_START_PAGE));
-    // contents.push(new Page(MOUSE_TASK));
+    contents.push(new Page(MOUSE_START_PAGE));
+    contents.push(new Page(MOUSE_TASK));
     contents.push(new Page(MOUSE_INFO_PAGE));
     contents.push(new Page(MOUSE_TASK));
     contents.push(new Page(MOUSE_RATING_FORM));
