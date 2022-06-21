@@ -12,12 +12,9 @@ export class MouseInfoPage extends React.Component {
     return (
       <Box p={2}>
         <Typography variant="h5">
-        We will ask you to repeat the pointing task. 
-        <br></br>
-        The pointer acceleration will be different this time.  
+        We will ask you to repeat the pointing task.  
         <br></br>
         Based on your pointing performance, our system has adjusted the pointer acceleration for you.
-        
         </Typography>
         <br></br>
         Please press "NEXT" when ready.
@@ -29,11 +26,9 @@ export class MouseInfoPage extends React.Component {
     return (
       <Box p={2}>
         <Typography variant="h5">
-        We will ask you to repeat the pointing task. 
+        We will ask you to repeat the pointing task.
         <br></br>
-        The pointer acceleration will be different this time.  
-        <br></br>
-        Based on pointing performance from an average person, our system has the adjusted pointer acceleration. 
+        Based on pointing performance from an average person, our system has adjusted pointer acceleration for you. 
         </Typography>        
         <br></br>
         Please press "NEXT" when ready.

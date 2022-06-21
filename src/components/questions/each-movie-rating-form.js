@@ -136,7 +136,7 @@ class EachMovieRatingForm extends React.Component {
     return (
       <div>
         <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Poor</Typography>
+          <Typography sx={{ mr: 2 }}>1=Very Poor</Typography>
           <Rating
             max={10}
             precision={1}
@@ -180,7 +180,7 @@ class EachMovieRatingForm extends React.Component {
 
         <Typography variant="h5">
           <br></br>
-          What do you think of this movie recommendation?
+          Please rate the quality of this movie recommendation.
         </Typography>
         {this.getHoverRating(m)}
       </Grid>

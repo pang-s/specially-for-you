@@ -117,7 +117,7 @@ class MouseRatingForm extends React.Component {
     return (
       <div>
         <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Poor </Typography>
+          <Typography sx={{ mr: 2 }}>1=Very Poor </Typography>
           <Rating
             max={10}
             // name="hover-feedback"
@@ -145,11 +145,11 @@ class MouseRatingForm extends React.Component {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography variant="h5">
-              What did you think of the adjusted pointer acceleration?
+              Please rate the quality of the adjusted pointer acceleration.
               <br></br>
             </Typography>
             <Typography>
-              Please rate on a scale of 1 to 10, 1 being "Poor" and 10 being "Excellent".
+              Please rate on a scale of 1 to 10, 1 being "Very Poor" and 10 being "Excellent".
             </Typography>
             {this.getHoverRating()}
           </Grid>

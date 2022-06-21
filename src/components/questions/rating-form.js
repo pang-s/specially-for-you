@@ -117,7 +117,7 @@ class RatingForm extends React.Component {
     return (
       <div>
         <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Poor </Typography>
+          <Typography sx={{ mr: 2 }}>1=Very Poor </Typography>
           <Rating
             max={10}
             // name="hover-feedback"
@@ -151,7 +151,7 @@ class RatingForm extends React.Component {
               <br></br>
             </Typography>
             <Typography>
-            Please rate on a scale of 1 to 10, 1 being "Poor" and 10 being "Excellent".
+            Please rate on a scale of 1 to 10, 1 being "Very Poor" and 10 being "Excellent".
             </Typography>
             {this.getHoverRating()}
           </Grid>
