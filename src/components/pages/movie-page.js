@@ -40,7 +40,7 @@ class MoviePage extends React.Component {
     return (
       <div>
         <Typography variant="h2" align="center" gutterBottom>
-          Movie recommendations
+          Movie recommendations for you
         </Typography>
         <Typography variant="h5" p={3} align="left">
           Please read the description of each movie, especially if you haven't

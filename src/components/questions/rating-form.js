@@ -147,7 +147,7 @@ class RatingForm extends React.Component {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography variant="h5">
-              What did you think of the quality of the movie recommendations?
+              Please rate the quality of the movie recommendations.
               <br></br>
             </Typography>
             <Typography>
