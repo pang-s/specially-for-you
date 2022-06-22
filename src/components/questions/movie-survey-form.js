@@ -11,14 +11,12 @@ import { surveyQuestions } from "../main/questions";
 import { styled } from "@mui/material/styles";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import TextField from '@mui/material/TextField';
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "#000000",
-  },
-  // '& .MuiRating-iconHover': {
-  //   color: '#ff3d47',
-  // },
+  }
 });
 
 class MovieSurveyForm extends React.Component {
@@ -26,10 +24,12 @@ class MovieSurveyForm extends React.Component {
     super(props);
     const numQuestions = surveyQuestions.length;
     var ratingArray = new Array(numQuestions).fill(null);
+    var hoverArray = new Array(numQuestions).fill(-1);
 
     this.state = {
       showNextButton: false,
       ratingArray: ratingArray,
+      hoverArray: hoverArray,
     };
   }
 
@@ -92,8 +92,11 @@ class MovieSurveyForm extends React.Component {
   }
 
   handleChange = (event, value, i) => {
-    var ratingValue = event.target.value;
-
+    var ratingValue = event.target.value - 1;
+    if(event.type==="click") {
+      // clear text field
+      ratingValue = null
+    }
     // Shallow copy
     var updatedArray = [...this.state.ratingArray];
     updatedArray[i] = ratingValue;
@@ -106,22 +109,64 @@ class MovieSurveyForm extends React.Component {
     );
   };
 
+  setHover = (newHover, i) => {
+    // Shallow copy
+    var updatedArray = [...this.state.hoverArray];
+    updatedArray[i] = newHover;
+    this.setState(
+      {
+        hoverArray: updatedArray,
+      },
+      () => this.renderNextButton()
+    );
+  };
+
+  isRatingSelected(i) {
+    return(this.state.ratingArray[i] !== null);
+  }
+
+  isHoverValueExists(i) {
+    return(this.state.hoverArray[i] !== -1);
+  }
+
+  getCurrentRating(i) {
+    return(this.isRatingSelected(i)
+    ? this.state.ratingArray[i]
+    : (this.isHoverValueExists(i) ? this.state.hoverArray[i] - 1 : ""));
+  }
+
   getHoverRating(i) {
     return (
       <div>
         <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Strongly disagree</Typography>
+          <Typography sx={{ mr: 2 }}>0=Strongly disagree</Typography>
           <StyledRating
-            max={10}
+            max={11}
             precision={1}
             onChange={(event, newValue) => {
               this.handleChange(event, newValue, i);
+            }}
+            onChangeActive={(event, newHover) => {
+              this.setHover(newHover, i);
             }}
             icon={<CheckCircleOutlineIcon fontSize="medium" />}
             emptyIcon={<CircleOutlinedIcon fontSize="medium" />}
             highlightSelectedOnly
           />
           <Typography sx={{ ml: 2 }}>10=Strongly agree</Typography>
+        </Box>
+        <br></br>
+
+
+        <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+          <TextField
+          label="Your selected rating"
+          value={this.getCurrentRating(i)}
+          InputProps={{
+            readOnly: true,
+          }}
+          size="small"
+        />
         </Box>
       </div>
     );
@@ -153,11 +198,8 @@ class MovieSurveyForm extends React.Component {
           <Grid p={2} container>
             <Grid item xs={12}>
               <Typography variant="h5">
-                Please answer the questions below.
-              </Typography>
-              <Typography>
-                Please rate on a scale of 1 to 10, where 1 means "Strongly
-                Disagree" and 10 means "Strongly Agree".
+                For each statement below, please rate on a scale of 0 to 10,
+                where 0 means "Strongly Disagree" and 10 means "Strongly Agree".
               </Typography>
             </Grid>
             {surveyQuestions.map((question, index) =>

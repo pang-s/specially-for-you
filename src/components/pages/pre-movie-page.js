@@ -32,7 +32,7 @@ export class PreMoviePage extends React.Component {
         <b>
           Thanks.
           <br></br>
-          Based on your answers (about the average person), our system has picked some movies for you.
+          Based on your answers (about the average person), our system has picked some movies.
         </b>
         </Typography>
         <br></br>

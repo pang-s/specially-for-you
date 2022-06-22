@@ -6,16 +6,25 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { goodMovies, badMovies } from "../main/movies";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import TextField from '@mui/material/TextField';
+import { styled } from "@mui/material/styles";
 
 const imgWidth = 220 * 0.8;
 const imgHeight = 326 * 0.8;
+
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "#000000",
+  }
+});
 
 class EachMovieRatingForm extends React.Component {
   constructor(props) {
@@ -23,15 +32,15 @@ class EachMovieRatingForm extends React.Component {
     const movieLength = goodMovies.length;
     var isSeenArray = new Array(movieLength).fill(null);
     var ratingArray = new Array(movieLength).fill(null);
+    var hoverArray = new Array(movieLength).fill(-1);
 
     this.state = {
       showNextButton: false,
-      ratingValue: null,
-      hoverValue: null,
-      hoverText: null,
 
       isSeenArray: isSeenArray,
       ratingArray: ratingArray,
+      hoverArray: hoverArray,
+
     };
   }
 
@@ -112,7 +121,11 @@ class EachMovieRatingForm extends React.Component {
   handleChange = (event, value, m) => {
     var mIndex = m.key - 1;
 
-    var ratingValue = event.target.value;
+    var ratingValue = event.target.value-1;
+    if(event.type==="click") {
+      // clear text field
+      ratingValue = null
+    }
 
     // Shallow copy
     var updatedArray = [...this.state.ratingArray];
@@ -126,31 +139,64 @@ class EachMovieRatingForm extends React.Component {
     );
   };
 
-  handleHover = (event, ratingValue) => {
-    this.setState({
-      hoverValue: ratingValue,
-    });
+  handleHover = (event, newHover, m) => {
+    var mIndex = m.key - 1;
+
+    // Shallow copy
+    var updatedArray = [...this.state.hoverArray];
+    updatedArray[mIndex] = newHover;
+    this.setState(
+      {
+        hoverArray: updatedArray,
+      },
+      () => this.renderNextButton()
+    );
   };
+
+  isRatingSelected(i) {
+    return(this.state.ratingArray[i] !== null);
+  }
+
+  isHoverValueExists(i) {
+    return(this.state.hoverArray[i] !== -1);
+  }
+
+  getCurrentRating(m) {
+    var i = m.key - 1;
+    return(this.isRatingSelected(i)
+    ? this.state.ratingArray[i]
+    : (this.isHoverValueExists(i) ? this.state.hoverArray[i]-1 : ""));
+  }
 
   getHoverRating(m) {
     return (
       <div>
-        <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Very Poor</Typography>
-          <Rating
-            max={10}
+        <Box display="flex" m={2}>
+          <Typography sx={{ mr: 2 }}>0=Very Poor</Typography>
+          <StyledRating
+            max={11}
             precision={1}
             onChange={(event, newValue) => {
               this.handleChange(event, newValue, m);
             }}
             onChangeActive={(event, newHover) => {
-              this.handleHover(event, newHover);
+              this.handleHover(event, newHover, m);
             }}
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
+            icon={<CheckCircleOutlineIcon fontSize="medium" />}
+            emptyIcon={<CircleOutlinedIcon fontSize="medium" />}
+            highlightSelectedOnly
           />
           <Typography sx={{ ml: 2 }}>10=Excellent</Typography>
+        </Box>
+        <Box display="flex">
+          <TextField
+          label="Your selected rating"
+          value={this.getCurrentRating(m)}
+          InputProps={{
+            readOnly: true,
+          }}
+          size="small"
+        />
         </Box>
       </div>
     );
@@ -180,7 +226,7 @@ class EachMovieRatingForm extends React.Component {
 
         <Typography variant="h5">
           <br></br>
-          Please rate the quality of this movie recommendation.
+          Please rate the quality of the movie recommendation for your taste.
         </Typography>
         {this.getHoverRating(m)}
       </Grid>

@@ -12,7 +12,7 @@ export class MouseInfoPage extends React.Component {
     return (
       <Box p={2}>
         <Typography variant="h5">
-        Based on your pointing performance, our system has adjusted the pointer acceleration for you.
+        <b>Based on your pointing performance, our system has adjusted the pointer acceleration for you.</b>
         </Typography>
         <br></br>
         Please press "NEXT" to repeat the pointing task.

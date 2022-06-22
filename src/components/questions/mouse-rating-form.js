@@ -8,20 +8,18 @@ import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
+import TextField from '@mui/material/TextField';
+import { styled } from "@mui/material/styles";
 
 const defaultValue = null;
-const labels = {
-  1: "1",
-  2: "2",
-  3: "3",
-  4: "4",
-  5: "5",
-  6: "6",
-  7: "7",
-  8: "8",
-  9: "9",
-  10: "10",
-};
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "#000000",
+  }
+});
+
 
 class MouseRatingForm extends React.Component {
   constructor(props) {
@@ -29,9 +27,7 @@ class MouseRatingForm extends React.Component {
     this.state = {
       showNextButton: false,
       ratingValue: null,
-      ratingText: null,
-      hoverValue: null,
-      hoverText: null,
+      hoverValue: -1,
     };
   }
 
@@ -92,35 +88,49 @@ class MouseRatingForm extends React.Component {
   }
 
   handleChange = (event, value) => {
-    var ratingValue = event.target.value;
-    var ratingText = labels[ratingValue];
+    var ratingValue = event.target.value-1;
+    if(event.type==="click") {
+      // clear text field
+      ratingValue = null
+    }
 
     this.setState(
       {
         ratingValue: ratingValue,
-        ratingText: ratingText,
       },
       () => this.renderNextButton()
     );
   };
 
-  handleHover = (event, ratingValue) => {
-    var ratingText = labels[ratingValue];
-
+  handleHover = (event, newHover) => {
+    var newValue = newHover;
     this.setState({
-      hoverValue: ratingValue,
-      hoverText: ratingText,
+      hoverValue: newValue
     });
   };
+
+  isRatingSelected() {
+    return(this.state.ratingValue !== null);
+  }
+
+  isHoverValueExists() {
+    return(this.state.hoverValue !== -1);
+  }
+
+  getCurrentRating() {
+    return(this.isRatingSelected()
+    ? this.state.ratingValue
+    : (this.isHoverValueExists() ? this.state.hoverValue-1 : ""));
+  }
+
 
   getHoverRating() {
     return (
       <div>
-        <Box display="flex">
-          <Typography sx={{ mr: 2 }}>1=Very Poor </Typography>
-          <Rating
-            max={10}
-            // name="hover-feedback"
+        <Box display="flex" m={2}>
+          <Typography sx={{ mr: 2 }}>0=Very Poor </Typography>
+          <StyledRating
+            max={11}
             value={this.hoverValue}
             precision={1}
             onChange={(event, newValue) => {
@@ -129,11 +139,21 @@ class MouseRatingForm extends React.Component {
             onChangeActive={(event, newHover) => {
               this.handleHover(event, newHover);
             }}
-            emptyIcon={
-              <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-            }
+            icon={<CheckCircleOutlineIcon fontSize="medium" />}
+            emptyIcon={<CircleOutlinedIcon fontSize="medium" />}
+            highlightSelectedOnly
           />
           <Typography sx={{ ml: 2 }}>10=Excellent</Typography>
+        </Box>
+        <Box display="flex">
+          <TextField
+          label="Your selected rating"
+          value={this.getCurrentRating()}
+          InputProps={{
+            readOnly: true,
+          }}
+          size="small"
+        />
         </Box>
       </div>
     );
@@ -145,11 +165,11 @@ class MouseRatingForm extends React.Component {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <Typography variant="h5">
-              Please rate the quality of the adjusted pointer acceleration.
+              Please rate the quality of the adjusted pointer acceleration for your pointing performance.
               <br></br>
             </Typography>
             <Typography>
-              Please rate on a scale of 1 to 10, 1 being "Very Poor" and 10 being "Excellent".
+              Please rate on a scale of 0 to 10, 0 being "Very Poor" and 10 being "Excellent".
             </Typography>
             {this.getHoverRating()}
           </Grid>
