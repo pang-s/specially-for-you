@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
-import StarIcon from "@mui/icons-material/Star";
+import Rating from "@mui/material/Rating";
 
 const factor = 1.1;
 const imgWidth = 220 * factor;
@@ -26,25 +26,21 @@ export class MovieCard extends React.Component {
               height={imgHeight}
               image={this.props.image}
             />
-            <CardContent sx={{ height: 360 }}>
+            <CardContent sx={{ height: 400 }}>
               <Typography gutterBottom variant="h5" component="div">
                 {this.props.title}
               </Typography>
-
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                // flexWrap: 'wrap',
-            }}>
-                <StarIcon sx={{ color: "#f5c518" }}></StarIcon>
-                <span> 
-                <Typography variant="h6" component="div">
-                Rating: <b>{this.props.rating}</b>/10
+              <Typography variant="subtitle1" component="legend">
+                Audience Average Rating:{" "}
               </Typography>
-              </span>
-            </div>  
-
+              <Box>
+                <Rating
+                  precision={0.5}
+                  name="read-only"
+                  value={this.props.rating}
+                  readOnly
+                />
+              </Box>
 
               <Typography variant="subtitle1" color="text.secondary">
                 {this.props.description}

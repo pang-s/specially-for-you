@@ -14,16 +14,18 @@ import FormControl from "@mui/material/FormControl";
 import { goodMovies, badMovies } from "../main/movies";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
+import Divider from '@mui/material/Divider';
 
-const imgWidth = 220 * 0.8;
-const imgHeight = 326 * 0.8;
+const scale = 1.1;
+const imgWidth = 220 * scale;
+const imgHeight = 326 * scale;
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
     color: "#000000",
-  }
+  },
 });
 
 class EachMovieRatingForm extends React.Component {
@@ -40,7 +42,6 @@ class EachMovieRatingForm extends React.Component {
       isSeenArray: isSeenArray,
       ratingArray: ratingArray,
       hoverArray: hoverArray,
-
     };
   }
 
@@ -121,10 +122,10 @@ class EachMovieRatingForm extends React.Component {
   handleChange = (event, value, m) => {
     var mIndex = m.key - 1;
 
-    var ratingValue = event.target.value-1;
-    if(event.type==="click") {
+    var ratingValue = event.target.value - 1;
+    if (event.type === "click") {
       // clear text field
-      ratingValue = null
+      ratingValue = null;
     }
 
     // Shallow copy
@@ -154,18 +155,20 @@ class EachMovieRatingForm extends React.Component {
   };
 
   isRatingSelected(i) {
-    return(this.state.ratingArray[i] !== null);
+    return this.state.ratingArray[i] !== null;
   }
 
   isHoverValueExists(i) {
-    return(this.state.hoverArray[i] !== -1);
+    return this.state.hoverArray[i] !== -1;
   }
 
   getCurrentRating(m) {
     var i = m.key - 1;
-    return(this.isRatingSelected(i)
-    ? this.state.ratingArray[i]
-    : (this.isHoverValueExists(i) ? this.state.hoverArray[i]-1 : ""));
+    return this.isRatingSelected(i)
+      ? this.state.ratingArray[i]
+      : this.isHoverValueExists(i)
+      ? this.state.hoverArray[i] - 1
+      : "";
   }
 
   getHoverRating(m) {
@@ -190,13 +193,13 @@ class EachMovieRatingForm extends React.Component {
         </Box>
         <Box display="flex">
           <TextField
-          label="Your selected rating"
-          value={this.getCurrentRating(m)}
-          InputProps={{
-            readOnly: true,
-          }}
-          size="small"
-        />
+            label="Your selected rating"
+            value={this.getCurrentRating(m)}
+            InputProps={{
+              readOnly: true,
+            }}
+            size="small"
+          />
         </Box>
       </div>
     );
@@ -205,7 +208,13 @@ class EachMovieRatingForm extends React.Component {
   showMovieCard(m) {
     return (
       <Grid item xs={4} p={2} key={"img" + m.key}>
-        <img align="right" width={imgWidth} height={imgHeight} src={m.image} alt="" />
+        <img
+          align="right"
+          width={imgWidth}
+          height={imgHeight}
+          src={m.image}
+          alt=""
+        />
       </Grid>
     );
   }
@@ -213,7 +222,28 @@ class EachMovieRatingForm extends React.Component {
   showMovieQuestion(m) {
     return (
       <Grid item xs={8} p={2} key={"question" + m.key}>
-        <Typography variant="h5">
+        <Typography>
+          {m.desc}
+          <br></br>
+        </Typography>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+          
+        >
+          <Typography variant="subtitle1"  m={1}>
+            Audience Average Rating:
+          </Typography>
+
+          <Rating precision={0.5} name="read-only" value={m.rating} readOnly />
+        </div>
+        <Divider />
+
+        <Typography variant="h5" mt={1}>
           Have you seen {m.name}?<br></br>
         </Typography>
 
@@ -238,11 +268,11 @@ class EachMovieRatingForm extends React.Component {
   }
 
   getGoodMovies() {
-    return(goodMovies.map((m) => this.showQuestionRow(m)));
+    return goodMovies.map((m) => this.showQuestionRow(m));
   }
 
   getBadMovies() {
-    return(badMovies.map((m) => this.showQuestionRow(m)));
+    return badMovies.map((m) => this.showQuestionRow(m));
   }
 
   render() {
@@ -256,7 +286,6 @@ class EachMovieRatingForm extends React.Component {
             flexWrap: "wrap",
           }}
         >
-
           <Grid p={2} container>
             {this.props.isGood ? this.getGoodMovies() : this.getBadMovies()}
           </Grid>
