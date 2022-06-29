@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { log } from "../../actions/mouse-actions";
 import { MouseSetup } from "./mouse-setup";
+import { Typography } from "@mui/material";
 
 const initialSetupIndex = 0;
 const activeColour = "lime";
@@ -203,6 +204,10 @@ class MouseTask extends React.Component {
   render() {
     return (
       <div>
+        <Typography mb={3} variant="h5" align="center">
+        Click the green bar as quickly and accurately as possible.
+        </Typography>
+
         <Grid
           container
           spacing={0}
