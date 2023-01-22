@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import StarIcon from "@mui/icons-material/Star";
 import { logSurveyResponse, log } from "../../actions/survey-actions";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
