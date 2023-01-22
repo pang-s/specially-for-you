@@ -1,5 +1,5 @@
 # About the Project
-This is the experiment source code for the paper "Specially For You' -- Examining the Barnum Effect's Influence on the Perceived Quality of System Recommendations".
+This is the experiment source code for the paper "'Specially For You' -- Examining the Barnum Effect's Influence on the Perceived Quality of System Recommendations".
 
 The paper is available at https://doi.org/10.1145/3544548.3580656.
 
