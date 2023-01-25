@@ -77,12 +77,12 @@ class MainStepper extends React.Component {
     contents.push(new Page(COMMENT_PAGE));
 
 
-    contents.push(new Page(MOUSE_START_PAGE));
-    contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_INFO_PAGE));
-    contents.push(new Page(MOUSE_TASK));
-    contents.push(new Page(MOUSE_RATING_FORM));
-    contents.push(new Page(MOUSE_COMMENT_PAGE));
+    // contents.push(new Page(MOUSE_START_PAGE));
+    // contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_INFO_PAGE));
+    // contents.push(new Page(MOUSE_TASK));
+    // contents.push(new Page(MOUSE_RATING_FORM));
+    // contents.push(new Page(MOUSE_COMMENT_PAGE));
 
     contents.push(new Page(AGE_FORM));
     contents.push(new Page(GENDER_FORM));
